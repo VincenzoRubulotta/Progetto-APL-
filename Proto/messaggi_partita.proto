@@ -1,0 +1,66 @@
+syntax= "proto3";
+
+package Scopone_Scientifico;
+
+option go_package = "./pb";
+
+enum Suit {
+    DENARI = 0;
+    COPPE = 1;
+    BASTONI = 2;
+    SPADE = 3;
+  }
+
+enum Rank {
+    UNKNOWN = 0; 
+    ASSO = 1;
+    DUE = 2;
+    TRE = 3;
+    QUATTRO = 4;
+    CINQUE = 5;
+    SEI = 6;
+    SETTE = 7;
+    FANTE = 8;
+    CAVALLO = 9;
+    RE = 10;
+}
+
+enum Actor {
+    USER = 0;        
+    CPU_RIGHT = 1;   
+    CPU_PARTNER = 2; 
+    CPU_LEFT = 3; 
+}   
+
+message empty {}
+
+message game_settings {
+    string user_name = 1;
+    int32 max_points = 2;
+}
+
+message card{
+    Suit  suit = 1;
+    Rank  rank = 2;
+}
+
+message initial_state{
+    repeated card user_hand = 1;
+    Actor dealer_ID = 2;
+    Actor current_player = 3;
+}
+
+message turn_update{
+    Actor actor = 1;
+    card played_card = 2;
+    repeated card carte_prese = 3;
+    bool scopa = 4;
+    bool is_match_over = 5;
+    Actor next_player_ID = 6;
+}
+
+service go_backend{
+    rpc start_game (game_settings) returns (initial_state);
+    rpc play_card  (card) returns (stream turn_update);
+    rpc observe_turn (empty) returns (stream turn_update);
+}
