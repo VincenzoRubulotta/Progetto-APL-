@@ -11,3 +11,7 @@
 go mod init scopone-server\
 go get google.golang.org/grpc\
 go get google.golang.org/protobuf}
+
+protoc --proto_path=. --csharp_out=./out_csharp --csharp_opt=file_extension=.g.cs --grpc_out=./out_csharp --plugin=protoc-gen-grpc=$PLUGIN_PATH messaggi_partita.proto
+
+protoc --proto_path=. --go_out=./out_go --go_opt=paths=source_relative --go-grpc_out=./out_go --go-grpc_opt=paths=source_relative messaggi_partita.proto

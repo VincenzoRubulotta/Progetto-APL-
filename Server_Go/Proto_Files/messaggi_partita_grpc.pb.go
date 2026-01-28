@@ -30,7 +30,7 @@ const (
 type GoBackendClient interface {
 	StartGame(ctx context.Context, in *GameSettings, opts ...grpc.CallOption) (*InitialState, error)
 	PlayCard(ctx context.Context, in *Card, opts ...grpc.CallOption) (grpc.ServerStreamingClient[TurnUpdate], error)
-	ObserveTurn(ctx context.Context, in *Empty, opts ...grpc.CallOption) (grpc.ServerStreamingClient[TurnUpdate], error)
+	ObserveTurn(ctx context.Context, in *ObserveRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[TurnUpdate], error)
 }
 
 type goBackendClient struct {
@@ -70,13 +70,13 @@ func (c *goBackendClient) PlayCard(ctx context.Context, in *Card, opts ...grpc.C
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type GoBackend_PlayCardClient = grpc.ServerStreamingClient[TurnUpdate]
 
-func (c *goBackendClient) ObserveTurn(ctx context.Context, in *Empty, opts ...grpc.CallOption) (grpc.ServerStreamingClient[TurnUpdate], error) {
+func (c *goBackendClient) ObserveTurn(ctx context.Context, in *ObserveRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[TurnUpdate], error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	stream, err := c.cc.NewStream(ctx, &GoBackend_ServiceDesc.Streams[1], GoBackend_ObserveTurn_FullMethodName, cOpts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &grpc.GenericClientStream[Empty, TurnUpdate]{ClientStream: stream}
+	x := &grpc.GenericClientStream[ObserveRequest, TurnUpdate]{ClientStream: stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -95,7 +95,7 @@ type GoBackend_ObserveTurnClient = grpc.ServerStreamingClient[TurnUpdate]
 type GoBackendServer interface {
 	StartGame(context.Context, *GameSettings) (*InitialState, error)
 	PlayCard(*Card, grpc.ServerStreamingServer[TurnUpdate]) error
-	ObserveTurn(*Empty, grpc.ServerStreamingServer[TurnUpdate]) error
+	ObserveTurn(*ObserveRequest, grpc.ServerStreamingServer[TurnUpdate]) error
 	mustEmbedUnimplementedGoBackendServer()
 }
 
@@ -112,7 +112,7 @@ func (UnimplementedGoBackendServer) StartGame(context.Context, *GameSettings) (*
 func (UnimplementedGoBackendServer) PlayCard(*Card, grpc.ServerStreamingServer[TurnUpdate]) error {
 	return status.Error(codes.Unimplemented, "method PlayCard not implemented")
 }
-func (UnimplementedGoBackendServer) ObserveTurn(*Empty, grpc.ServerStreamingServer[TurnUpdate]) error {
+func (UnimplementedGoBackendServer) ObserveTurn(*ObserveRequest, grpc.ServerStreamingServer[TurnUpdate]) error {
 	return status.Error(codes.Unimplemented, "method ObserveTurn not implemented")
 }
 func (UnimplementedGoBackendServer) mustEmbedUnimplementedGoBackendServer() {}
@@ -166,11 +166,11 @@ func _GoBackend_PlayCard_Handler(srv interface{}, stream grpc.ServerStream) erro
 type GoBackend_PlayCardServer = grpc.ServerStreamingServer[TurnUpdate]
 
 func _GoBackend_ObserveTurn_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(Empty)
+	m := new(ObserveRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(GoBackendServer).ObserveTurn(m, &grpc.GenericServerStream[Empty, TurnUpdate]{ServerStream: stream})
+	return srv.(GoBackendServer).ObserveTurn(m, &grpc.GenericServerStream[ObserveRequest, TurnUpdate]{ServerStream: stream})
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.

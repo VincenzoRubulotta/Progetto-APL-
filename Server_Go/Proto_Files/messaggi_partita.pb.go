@@ -198,26 +198,27 @@ func (Actor) EnumDescriptor() ([]byte, []int) {
 	return file_messaggi_partita_proto_rawDescGZIP(), []int{2}
 }
 
-type Empty struct {
+type ObserveRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	Game_ID       int32                  `protobuf:"varint,1,opt,name=game_ID,json=gameID,proto3" json:"game_ID,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *Empty) Reset() {
-	*x = Empty{}
+func (x *ObserveRequest) Reset() {
+	*x = ObserveRequest{}
 	mi := &file_messaggi_partita_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *Empty) String() string {
+func (x *ObserveRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Empty) ProtoMessage() {}
+func (*ObserveRequest) ProtoMessage() {}
 
-func (x *Empty) ProtoReflect() protoreflect.Message {
+func (x *ObserveRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_messaggi_partita_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -229,9 +230,16 @@ func (x *Empty) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Empty.ProtoReflect.Descriptor instead.
-func (*Empty) Descriptor() ([]byte, []int) {
+// Deprecated: Use ObserveRequest.ProtoReflect.Descriptor instead.
+func (*ObserveRequest) Descriptor() ([]byte, []int) {
 	return file_messaggi_partita_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *ObserveRequest) GetGame_ID() int32 {
+	if x != nil {
+		return x.Game_ID
+	}
+	return 0
 }
 
 type GameSettings struct {
@@ -288,8 +296,9 @@ func (x *GameSettings) GetMaxPoints() int32 {
 
 type Card struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Suit          Suit                   `protobuf:"varint,1,opt,name=suit,proto3,enum=Scopone_Scientifico.Suit" json:"suit,omitempty"`
-	Rank          Rank                   `protobuf:"varint,2,opt,name=rank,proto3,enum=Scopone_Scientifico.Rank" json:"rank,omitempty"`
+	Game_ID       int32                  `protobuf:"varint,1,opt,name=game_ID,json=gameID,proto3" json:"game_ID,omitempty"`
+	Suit          Suit                   `protobuf:"varint,2,opt,name=suit,proto3,enum=Scopone_Scientifico.Suit" json:"suit,omitempty"`
+	Rank          Rank                   `protobuf:"varint,3,opt,name=rank,proto3,enum=Scopone_Scientifico.Rank" json:"rank,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -324,6 +333,13 @@ func (*Card) Descriptor() ([]byte, []int) {
 	return file_messaggi_partita_proto_rawDescGZIP(), []int{2}
 }
 
+func (x *Card) GetGame_ID() int32 {
+	if x != nil {
+		return x.Game_ID
+	}
+	return 0
+}
+
 func (x *Card) GetSuit() Suit {
 	if x != nil {
 		return x.Suit
@@ -340,9 +356,10 @@ func (x *Card) GetRank() Rank {
 
 type InitialState struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserHand      []*Card                `protobuf:"bytes,1,rep,name=user_hand,json=userHand,proto3" json:"user_hand,omitempty"`
-	Dealer_ID     Actor                  `protobuf:"varint,2,opt,name=dealer_ID,json=dealerID,proto3,enum=Scopone_Scientifico.Actor" json:"dealer_ID,omitempty"`
-	CurrentPlayer Actor                  `protobuf:"varint,3,opt,name=current_player,json=currentPlayer,proto3,enum=Scopone_Scientifico.Actor" json:"current_player,omitempty"`
+	Game_ID       int32                  `protobuf:"varint,1,opt,name=game_ID,json=gameID,proto3" json:"game_ID,omitempty"`
+	UserHand      []*Card                `protobuf:"bytes,2,rep,name=user_hand,json=userHand,proto3" json:"user_hand,omitempty"`
+	Dealer_ID     Actor                  `protobuf:"varint,3,opt,name=dealer_ID,json=dealerID,proto3,enum=Scopone_Scientifico.Actor" json:"dealer_ID,omitempty"`
+	CurrentPlayer Actor                  `protobuf:"varint,4,opt,name=current_player,json=currentPlayer,proto3,enum=Scopone_Scientifico.Actor" json:"current_player,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -375,6 +392,13 @@ func (x *InitialState) ProtoReflect() protoreflect.Message {
 // Deprecated: Use InitialState.ProtoReflect.Descriptor instead.
 func (*InitialState) Descriptor() ([]byte, []int) {
 	return file_messaggi_partita_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *InitialState) GetGame_ID() int32 {
+	if x != nil {
+		return x.Game_ID
+	}
+	return 0
 }
 
 func (x *InitialState) GetUserHand() []*Card {
@@ -486,19 +510,22 @@ var File_messaggi_partita_proto protoreflect.FileDescriptor
 
 const file_messaggi_partita_proto_rawDesc = "" +
 	"\n" +
-	"\x16messaggi_partita.proto\x12\x13Scopone_Scientifico\"\a\n" +
-	"\x05empty\"K\n" +
+	"\x16messaggi_partita.proto\x12\x13Scopone_Scientifico\"*\n" +
+	"\x0fobserve_request\x12\x17\n" +
+	"\agame_ID\x18\x01 \x01(\x05R\x06gameID\"K\n" +
 	"\rgame_settings\x12\x1b\n" +
 	"\tuser_name\x18\x01 \x01(\tR\buserName\x12\x1d\n" +
 	"\n" +
-	"max_points\x18\x02 \x01(\x05R\tmaxPoints\"d\n" +
-	"\x04card\x12-\n" +
-	"\x04suit\x18\x01 \x01(\x0e2\x19.Scopone_Scientifico.SuitR\x04suit\x12-\n" +
-	"\x04rank\x18\x02 \x01(\x0e2\x19.Scopone_Scientifico.RankR\x04rank\"\xc3\x01\n" +
-	"\rinitial_state\x126\n" +
-	"\tuser_hand\x18\x01 \x03(\v2\x19.Scopone_Scientifico.cardR\buserHand\x127\n" +
-	"\tdealer_ID\x18\x02 \x01(\x0e2\x1a.Scopone_Scientifico.ActorR\bdealerID\x12A\n" +
-	"\x0ecurrent_player\x18\x03 \x01(\x0e2\x1a.Scopone_Scientifico.ActorR\rcurrentPlayer\"\xb3\x02\n" +
+	"max_points\x18\x02 \x01(\x05R\tmaxPoints\"}\n" +
+	"\x04card\x12\x17\n" +
+	"\agame_ID\x18\x01 \x01(\x05R\x06gameID\x12-\n" +
+	"\x04suit\x18\x02 \x01(\x0e2\x19.Scopone_Scientifico.SuitR\x04suit\x12-\n" +
+	"\x04rank\x18\x03 \x01(\x0e2\x19.Scopone_Scientifico.RankR\x04rank\"\xdc\x01\n" +
+	"\rinitial_state\x12\x17\n" +
+	"\agame_ID\x18\x01 \x01(\x05R\x06gameID\x126\n" +
+	"\tuser_hand\x18\x02 \x03(\v2\x19.Scopone_Scientifico.cardR\buserHand\x127\n" +
+	"\tdealer_ID\x18\x03 \x01(\x0e2\x1a.Scopone_Scientifico.ActorR\bdealerID\x12A\n" +
+	"\x0ecurrent_player\x18\x04 \x01(\x0e2\x1a.Scopone_Scientifico.ActorR\rcurrentPlayer\"\xb3\x02\n" +
 	"\vturn_update\x120\n" +
 	"\x05actor\x18\x01 \x01(\x0e2\x1a.Scopone_Scientifico.ActorR\x05actor\x12:\n" +
 	"\vplayed_card\x18\x02 \x01(\v2\x19.Scopone_Scientifico.cardR\n" +
@@ -532,13 +559,13 @@ const file_messaggi_partita_proto_rawDesc = "" +
 	"\x04USER\x10\x00\x12\r\n" +
 	"\tCPU_RIGHT\x10\x01\x12\x0f\n" +
 	"\vCPU_PARTNER\x10\x02\x12\f\n" +
-	"\bCPU_LEFT\x10\x032\xfe\x01\n" +
+	"\bCPU_LEFT\x10\x032\x88\x02\n" +
 	"\n" +
 	"go_backend\x12T\n" +
 	"\n" +
 	"start_game\x12\".Scopone_Scientifico.game_settings\x1a\".Scopone_Scientifico.initial_state\x12J\n" +
-	"\tplay_card\x12\x19.Scopone_Scientifico.card\x1a .Scopone_Scientifico.turn_update0\x01\x12N\n" +
-	"\fobserve_turn\x12\x1a.Scopone_Scientifico.empty\x1a .Scopone_Scientifico.turn_update0\x01B\x06Z\x04./pbb\x06proto3"
+	"\tplay_card\x12\x19.Scopone_Scientifico.card\x1a .Scopone_Scientifico.turn_update0\x01\x12X\n" +
+	"\fobserve_turn\x12$.Scopone_Scientifico.observe_request\x1a .Scopone_Scientifico.turn_update0\x01B\x06Z\x04./pbb\x06proto3"
 
 var (
 	file_messaggi_partita_proto_rawDescOnce sync.Once
@@ -555,14 +582,14 @@ func file_messaggi_partita_proto_rawDescGZIP() []byte {
 var file_messaggi_partita_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
 var file_messaggi_partita_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_messaggi_partita_proto_goTypes = []any{
-	(Suit)(0),            // 0: Scopone_Scientifico.Suit
-	(Rank)(0),            // 1: Scopone_Scientifico.Rank
-	(Actor)(0),           // 2: Scopone_Scientifico.Actor
-	(*Empty)(nil),        // 3: Scopone_Scientifico.empty
-	(*GameSettings)(nil), // 4: Scopone_Scientifico.game_settings
-	(*Card)(nil),         // 5: Scopone_Scientifico.card
-	(*InitialState)(nil), // 6: Scopone_Scientifico.initial_state
-	(*TurnUpdate)(nil),   // 7: Scopone_Scientifico.turn_update
+	(Suit)(0),              // 0: Scopone_Scientifico.Suit
+	(Rank)(0),              // 1: Scopone_Scientifico.Rank
+	(Actor)(0),             // 2: Scopone_Scientifico.Actor
+	(*ObserveRequest)(nil), // 3: Scopone_Scientifico.observe_request
+	(*GameSettings)(nil),   // 4: Scopone_Scientifico.game_settings
+	(*Card)(nil),           // 5: Scopone_Scientifico.card
+	(*InitialState)(nil),   // 6: Scopone_Scientifico.initial_state
+	(*TurnUpdate)(nil),     // 7: Scopone_Scientifico.turn_update
 }
 var file_messaggi_partita_proto_depIdxs = []int32{
 	0,  // 0: Scopone_Scientifico.card.suit:type_name -> Scopone_Scientifico.Suit
@@ -576,7 +603,7 @@ var file_messaggi_partita_proto_depIdxs = []int32{
 	2,  // 8: Scopone_Scientifico.turn_update.next_player_ID:type_name -> Scopone_Scientifico.Actor
 	4,  // 9: Scopone_Scientifico.go_backend.start_game:input_type -> Scopone_Scientifico.game_settings
 	5,  // 10: Scopone_Scientifico.go_backend.play_card:input_type -> Scopone_Scientifico.card
-	3,  // 11: Scopone_Scientifico.go_backend.observe_turn:input_type -> Scopone_Scientifico.empty
+	3,  // 11: Scopone_Scientifico.go_backend.observe_turn:input_type -> Scopone_Scientifico.observe_request
 	6,  // 12: Scopone_Scientifico.go_backend.start_game:output_type -> Scopone_Scientifico.initial_state
 	7,  // 13: Scopone_Scientifico.go_backend.play_card:output_type -> Scopone_Scientifico.turn_update
 	7,  // 14: Scopone_Scientifico.go_backend.observe_turn:output_type -> Scopone_Scientifico.turn_update
