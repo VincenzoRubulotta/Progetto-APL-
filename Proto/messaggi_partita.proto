@@ -32,7 +32,9 @@ enum Actor {
     CPU_LEFT = 3; 
 }   
 
-message empty {}
+message observe_request{
+    int32 game_ID = 1;
+}
 
 message game_settings {
     string user_name = 1;
@@ -40,14 +42,16 @@ message game_settings {
 }
 
 message card{
-    Suit  suit = 1;
-    Rank  rank = 2;
+    int32 game_ID = 1;
+    Suit  suit = 2;
+    Rank  rank = 3;
 }
 
 message initial_state{
-    repeated card user_hand = 1;
-    Actor dealer_ID = 2;
-    Actor current_player = 3;
+    int32 game_ID = 1;
+    repeated card user_hand = 2;
+    Actor dealer_ID = 3;
+    Actor current_player = 4;
 }
 
 message turn_update{
@@ -62,5 +66,5 @@ message turn_update{
 service go_backend{
     rpc start_game (game_settings) returns (initial_state);
     rpc play_card  (card) returns (stream turn_update);
-    rpc observe_turn (empty) returns (stream turn_update);
+    rpc observe_turn (observe_request) returns (stream turn_update);
 }
