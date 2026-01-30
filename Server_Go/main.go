@@ -93,8 +93,29 @@ func (g *GameSession) tableManager(req *pb.Card) *pb.TurnUpdate {
 	if len(combinazioniTotali) == 0 {
 		g.tableTop = append(g.tableTop, req)
 		return update
+	} else if len(combinazioniTotali) == 1 {
+		combinazione := combinazioniTotali[0]
+		for _, card := range combinazione {
+			for i, tableCard := range g.tableTop {
+				if tableCard.Game_ID == card.Game_ID && tableCard.Suit == card.Suit && tableCard.Rank == card.Rank {
+					g.tableTop = append(g.tableTop[:i], g.tableTop[i+1:]...)
+					g.history = append(g.history, tableCard)
+					update.CartePrese = append(update.CartePrese, tableCard)
+					break
+				}
+			}
+		}
+		g.history = append(g.history, req)
+		update.CartePrese = append(update.CartePrese, req)
+		if len(g.tableTop) == 0 {
+			update.Scopa = true
+		}
+		return update
+	} else if len(combinazioniTotali) > 1 {
+		// da implementare ancora come scegliere la combinazione con il punteggio migliore
 	}
 }
+
 func (g *GameSession) subscribe() chan *pb.TurnUpdate {
 
 	g.mu.Lock()
