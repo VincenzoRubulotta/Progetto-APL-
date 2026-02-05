@@ -13,21 +13,198 @@ type GameSession struct {
 	deck          []*pb.Card
 	hands         map[pb.Actor][]*pb.Card
 	scoreDeck     map[int][]*pb.Card
+	mappaScope    map[int]int32
 	history       []*pb.Card
 	tableTop      []*pb.Card
 	victoryPoints int32
 	hasStarted    bool
 	isGameOver    bool
+	ultimaPresa   pb.Actor
 }
 
 var gameManager = make(map[int]*GameSession)
 var managerMU sync.Mutex
 
+func calcolaGiocata(hand []*pb.Card, tableTop []*pb.Card, history []*pb.Card, scoreDeck [](*pb.Card)) *pb.Card {
+
+	mappaPunteggi := make(map[*pb.Card]int)
+	for _, card := range hand {
+		mappaPunteggi[card] = 0
+	}
+
+	// caso tavolo vuoto
+	if len(tableTop) == 0 {
+		conta := make(map[pb.Rank]int)
+		for _, card := range hand {
+			conta[card.Rank]++
+		}
+		for _, card := range history {
+			conta[card.Rank]++
+		}
+
+		for rank, numero := range conta {
+			switch numero {
+			case 4:
+				for _, card := range hand {
+					if card.Rank == rank && card.Suit != pb.Suit_DENARI {
+						return card
+					}
+				}
+
+			case 3:
+				for _, card := range hand {
+					mappaPunteggi[card] += 100
+					if card.Rank == pb.Rank_SETTE && card.Suit == pb.Suit_DENARI {
+						mappaPunteggi[card] -= 1500
+					}
+					if card.Rank == pb.Rank_SETTE {
+						mappaPunteggi[card] -= 40
+					}
+					if card.Suit == pb.Suit_DENARI {
+						mappaPunteggi[card] -= 20
+					}
+				}
+
+			case 2:
+				for _, card := range hand {
+					mappaPunteggi[card] += 59
+					if card.Rank == pb.Rank_SETTE && card.Suit == pb.Suit_DENARI {
+						mappaPunteggi[card] -= 1500
+					}
+					if card.Rank == pb.Rank_SETTE {
+						mappaPunteggi[card] -= 40
+					}
+					if card.Suit == pb.Suit_DENARI {
+						mappaPunteggi[card] -= 20
+					}
+				}
+
+			default:
+				for _, card := range hand {
+					mappaPunteggi[card] += 18
+					if card.Rank == pb.Rank_SETTE && card.Suit == pb.Suit_DENARI {
+						mappaPunteggi[card] -= 1500
+					}
+					if card.Rank == pb.Rank_SETTE {
+						mappaPunteggi[card] -= 40
+					}
+					if card.Suit == pb.Suit_DENARI {
+						mappaPunteggi[card] -= 20
+					}
+				}
+			}
+		}
+	} else { // caso tavolo non vuoto
+		contaPunteggioTavolo := 0
+		for _, card := range tableTop {
+			contaPunteggioTavolo += int(card.Rank)
+		}
+
+		// se posso fare scopa
+		if contaPunteggioTavolo <= 10 {
+			possibileGiocata := make([]*pb.Card, 0)
+
+			for _, card := range hand {
+				if card.Rank == pb.Rank(contaPunteggioTavolo) {
+					if card.Suit == pb.Suit_DENARI {
+						return card
+					} else {
+						possibileGiocata = append(possibileGiocata, card)
+					}
+				}
+			}
+			return possibileGiocata[0]
+		}
+
+		// se non posso fare scopa (valuto le carte in mano)
+		for _, card := range hand {
+			combinazioni := trovaCombinazioni(tableTop, int32(card.Rank))
+			if len(combinazioni) == 0 {
+				if card.Suit == pb.Suit_DENARI {
+					mappaPunteggi[card] += 100
+				}
+				if card.Rank == pb.Rank_SETTE {
+					mappaPunteggi[card] += 500
+				}
+
+				punteggioMax := 0
+				combinazioneScelta := make([]*pb.Card, 0)
+				for _, combinazione := range combinazioni {
+					punteggioAttuale := calcolaPunteggioCombinazione(combinazione)
+					if punteggioAttuale > punteggioMax {
+						punteggioMax = punteggioAttuale
+						combinazioneScelta = combinazione
+					}
+				}
+
+				coteggioGiocata := 0
+				for _, c := range combinazioneScelta {
+					coteggioGiocata += int(c.Rank)
+				}
+
+				if (contaPunteggioTavolo - coteggioGiocata) <= 10 {
+					mappaPunteggi[card] -= 1500
+				} else {
+					mappaPunteggi[card] += 100
+				}
+			} else {
+				if card.Suit == pb.Suit_DENARI {
+					mappaPunteggi[card] -= 100
+				}
+				if card.Rank == pb.Rank_SETTE {
+					mappaPunteggi[card] -= 500
+				}
+			}
+		}
+	}
+
+	var cartaScelta *pb.Card
+	var punteggioMax int = 0
+
+	for card, punteggio := range mappaPunteggi {
+		if punteggio > punteggioMax {
+			punteggioMax = punteggio
+			cartaScelta = card
+		}
+	}
+	return cartaScelta
+}
+
+func calcolaPunteggioCombinazione(combinazione []*pb.Card) int {
+	Punteggio := 0
+
+	for _, card := range combinazione {
+		Punteggio += 10
+
+		if card.Suit == pb.Suit_DENARI {
+			Punteggio += 50
+		}
+
+		switch card.Rank {
+		case pb.Rank_SETTE:
+			if card.Suit == pb.Suit_DENARI {
+				Punteggio += 1500
+			} else {
+				Punteggio += 200
+			}
+		case pb.Rank_SEI:
+			Punteggio += 60
+
+		case pb.Rank_ASSO:
+			Punteggio += 20
+		default:
+			Punteggio += 0
+		}
+
+	}
+	return Punteggio
+}
+
 func (g *GameSession) subscribe() chan *pb.TurnUpdate {
 
 	g.mu.Lock()
 	defer g.mu.Unlock()
-	ch := make(chan *pb.TurnUpdate, 10)
+	ch := make(chan *pb.TurnUpdate, 100)
 	g.listeners = append(g.listeners, ch)
 
 	return ch
@@ -98,8 +275,10 @@ func (g *GameSession) tableManager(req *pb.Card, player pb.Actor) *pb.TurnUpdate
 			g.scoreDeck[int(player)] = append(g.scoreDeck[int(player)], card, req)
 			if len(g.tableTop) == 0 {
 				update.Scopa = true
+				g.mappaScope[int(player)]++
 			}
 
+			g.ultimaPresa = player
 			return update
 		}
 	}
@@ -108,6 +287,7 @@ func (g *GameSession) tableManager(req *pb.Card, player pb.Actor) *pb.TurnUpdate
 
 	if len(combinazioniTotali) == 0 {
 		g.tableTop = append(g.tableTop, req)
+		update.CartePrese = nil
 		return update
 	} else if len(combinazioniTotali) == 1 {
 		combinazione := combinazioniTotali[0]
@@ -128,11 +308,39 @@ func (g *GameSession) tableManager(req *pb.Card, player pb.Actor) *pb.TurnUpdate
 
 		if len(g.tableTop) == 0 {
 			update.Scopa = true
+			g.mappaScope[int(player)]++
 		}
+		g.ultimaPresa = player
 		return update
 	} else if len(combinazioniTotali) > 1 {
-		// da implementare ancora come scegliere la combinazione con il punteggio migliore
+		punteggiomax := 0
+		for _, combinazione := range combinazioniTotali {
+			punteggioAttuale := calcolaPunteggioCombinazione(combinazione)
+			if punteggioAttuale > punteggiomax {
+				punteggiomax = punteggioAttuale
+				update.CartePrese = combinazione
+			}
+		}
 
+		for _, card := range update.CartePrese {
+			for i, tableCard := range g.tableTop {
+				if tableCard.Game_ID == card.Game_ID && tableCard.Suit == card.Suit && tableCard.Rank == card.Rank {
+					g.tableTop = append(g.tableTop[:i], g.tableTop[i+1:]...)
+					g.history = append(g.history, tableCard)
+					g.scoreDeck[int(player)] = append(g.scoreDeck[int(player)], tableCard)
+					break
+				}
+			}
+		}
+
+		g.history = append(g.history, req)
+		update.CartePrese = append(update.CartePrese, req)
+		g.scoreDeck[int(player)] = append(g.scoreDeck[int(player)], req)
+		if len(g.tableTop) == 0 {
+			update.Scopa = true
+			g.mappaScope[int(player)]++
+		}
+		g.ultimaPresa = player
 		return update
 	}
 
@@ -140,5 +348,42 @@ func (g *GameSession) tableManager(req *pb.Card, player pb.Actor) *pb.TurnUpdate
 }
 
 func (g *GameSession) runCPUPlayers(player pb.Actor, myChan chan *pb.TurnUpdate) {
-	// ancora da implementare
+	for update := range myChan {
+		if update.NextPlayer_ID == player && !g.isGameOver && !update.IsMatchOver {
+			g.mu.Lock()
+
+			cpuHand := g.hands[player]
+
+			if len(cpuHand) == 0 {
+				updateFine := &pb.TurnUpdate{
+					Actor:         g.ultimaPresa,
+					NextPlayer_ID: -1,
+					IsMatchOver:   true,
+				}
+
+				if len(g.tableTop) > 0 {
+					for i, card := range g.tableTop {
+						g.history = append(g.history, card)
+						g.scoreDeck[int(g.ultimaPresa)] = append(g.scoreDeck[int(g.ultimaPresa)], card)
+						updateFine.CartePrese = append(updateFine.CartePrese, card)
+						g.tableTop = append(g.tableTop[:i], g.tableTop[i+1:]...)
+					}
+				} else if len(g.tableTop) == 0 {
+					g.mappaScope[int(g.ultimaPresa)]--
+				}
+
+				g.broadcastUpdate(updateFine)
+				g.mu.Unlock()
+				continue
+			}
+
+			cartaScelta := calcolaGiocata(cpuHand, g.tableTop, g.history, g.scoreDeck[int(player)])
+
+			upadateTurnoPlayer := g.tableManager(cartaScelta, player)
+
+			go g.broadcastUpdate(upadateTurnoPlayer)
+
+			g.mu.Unlock()
+		}
+	}
 }
