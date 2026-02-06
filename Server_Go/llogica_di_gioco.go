@@ -278,6 +278,30 @@ func calcolaPunteggioCombinazione(combinazione []*pb.Card) int {
 	return Punteggio
 }
 
+func (g *GameSession) controlloFineRound(update *pb.TurnUpdate, player pb.Actor) {
+
+	if len(g.history)+len(g.tableTop) == 40 {
+		update.IsMatchOver = true
+		update.NextPlayer_ID = -1
+
+		if len(g.tableTop) > 0 {
+			ultimoID := int(g.ultimaPresa)
+
+			g.history = append(g.history, g.tableTop...)
+			g.scoreDeck[ultimoID] = append(g.scoreDeck[ultimoID], g.tableTop...)
+			update.CartePrese = append(update.CartePrese, g.tableTop...)
+
+			g.tableTop = nil
+		} else {
+			if update.Scopa {
+				update.Scopa = false
+				g.mappaScope[int(player)]--
+			}
+		}
+	}
+
+}
+
 func (g *GameSession) subscribe() chan *pb.TurnUpdate {
 
 	g.mu.Lock()
@@ -357,6 +381,9 @@ func (g *GameSession) tableManager(req *pb.Card, player pb.Actor) *pb.TurnUpdate
 			}
 
 			g.ultimaPresa = player
+
+			g.controlloFineRound(update, player)
+
 			return update
 		}
 	}
@@ -366,6 +393,9 @@ func (g *GameSession) tableManager(req *pb.Card, player pb.Actor) *pb.TurnUpdate
 	if len(combinazioniTotali) == 0 {
 		g.tableTop = append(g.tableTop, req)
 		update.CartePrese = nil
+
+		g.controlloFineRound(update, player)
+
 		return update
 	} else if len(combinazioniTotali) == 1 {
 		combinazione := combinazioniTotali[0]
@@ -389,7 +419,11 @@ func (g *GameSession) tableManager(req *pb.Card, player pb.Actor) *pb.TurnUpdate
 			g.mappaScope[int(player)]++
 		}
 		g.ultimaPresa = player
+
+		g.controlloFineRound(update, player)
+
 		return update
+
 	} else if len(combinazioniTotali) > 1 {
 		punteggiomax := 0
 		for _, combinazione := range combinazioniTotali {
@@ -419,6 +453,9 @@ func (g *GameSession) tableManager(req *pb.Card, player pb.Actor) *pb.TurnUpdate
 			g.mappaScope[int(player)]++
 		}
 		g.ultimaPresa = player
+
+		g.controlloFineRound(update, player)
+
 		return update
 	}
 
@@ -430,32 +467,12 @@ func (g *GameSession) runCPUPlayers(player pb.Actor, myChan chan *pb.TurnUpdate)
 		if update.NextPlayer_ID == player && !g.isGameOver && !update.IsMatchOver {
 			g.mu.Lock()
 
-			cpuHand := g.hands[player]
-
-			if len(cpuHand) == 0 {
-				updateFine := &pb.TurnUpdate{
-					Actor:         g.ultimaPresa,
-					NextPlayer_ID: -1,
-					IsMatchOver:   true,
-				}
-
-				if len(g.tableTop) > 0 {
-					for i, card := range g.tableTop {
-						g.history = append(g.history, card)
-						g.scoreDeck[int(g.ultimaPresa)] = append(g.scoreDeck[int(g.ultimaPresa)], card)
-						updateFine.CartePrese = append(updateFine.CartePrese, card)
-						g.tableTop = append(g.tableTop[:i], g.tableTop[i+1:]...)
-					}
-				} else if len(g.tableTop) == 0 {
-					g.mappaScope[int(g.ultimaPresa)]--
-				}
-
-				g.broadcastUpdate(updateFine)
+			if len(g.hands[player]) == 0 {
 				g.mu.Unlock()
 				continue
 			}
 
-			cartaScelta := calcolaGiocata(cpuHand, g.tableTop, g.history)
+			cartaScelta := calcolaGiocata(g.hands[player], g.tableTop, g.history)
 
 			upadateTurnoPlayer := g.tableManager(cartaScelta, player)
 
