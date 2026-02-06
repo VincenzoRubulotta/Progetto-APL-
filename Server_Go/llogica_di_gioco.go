@@ -14,6 +14,7 @@ type GameSession struct {
 	hands         map[pb.Actor][]*pb.Card
 	scoreDeck     map[int][]*pb.Card
 	mappaScope    map[int]int32
+	scorePoints   [2]int32
 	history       []*pb.Card
 	tableTop      []*pb.Card
 	victoryPoints int32
@@ -25,7 +26,84 @@ type GameSession struct {
 var gameManager = make(map[int]*GameSession)
 var managerMU sync.Mutex
 
-func calcolaGiocata(hand []*pb.Card, tableTop []*pb.Card, history []*pb.Card, scoreDeck [](*pb.Card)) *pb.Card {
+var valPrimiera = map[pb.Rank]int32{
+	pb.Rank_ASSO:    16,
+	pb.Rank_DUE:     12,
+	pb.Rank_TRE:     13,
+	pb.Rank_QUATTRO: 14,
+	pb.Rank_CINQUE:  15,
+	pb.Rank_SEI:     18,
+	pb.Rank_SETTE:   21,
+	pb.Rank_FANTE:   10,
+	pb.Rank_CAVALLO: 10,
+	pb.Rank_RE:      10,
+}
+
+func calcolaRisultati(game *GameSession) [2]int32 {
+
+	punteggioFinale := [2]int32{game.scorePoints[0], game.scorePoints[1]}
+
+	carteTotali := [2]int32{0, 0}
+	denariTotali := [2]int32{0, 0}
+
+	maxPrimiera := [2][4]int32{
+		{0, 0, 0, 0},
+		{0, 0, 0, 0},
+	}
+
+	for i := 0; i < 4; i++ {
+		teamID := i % 2
+
+		punteggioFinale[teamID] += game.mappaScope[i]
+
+		for _, card := range game.scoreDeck[i] {
+			carteTotali[teamID]++
+
+			if card.Suit == pb.Suit_DENARI {
+				denariTotali[teamID]++
+				if card.Rank == pb.Rank_SETTE {
+					punteggioFinale[teamID]++
+				}
+			}
+
+			valore := valPrimiera[card.Rank]
+			suitIdx := int(card.Suit)
+
+			if valore > maxPrimiera[teamID][suitIdx] {
+				maxPrimiera[teamID][suitIdx] = valore
+			}
+		}
+	}
+
+	if carteTotali[0] > carteTotali[1] {
+		punteggioFinale[0]++
+	} else if carteTotali[1] > carteTotali[0] {
+		punteggioFinale[1]++
+	}
+
+	if denariTotali[0] > denariTotali[1] {
+		punteggioFinale[0]++
+	} else if denariTotali[1] > denariTotali[0] {
+		punteggioFinale[1]++
+	}
+
+	totalePrimiera := [2]int32{0, 0}
+	for i := 0; i < 2; i++ {
+		for k := 0; k < 4; k++ {
+			totalePrimiera[i] += maxPrimiera[i][k]
+		}
+	}
+
+	if totalePrimiera[0] > totalePrimiera[1] {
+		punteggioFinale[0]++
+	} else if totalePrimiera[1] > totalePrimiera[0] {
+		punteggioFinale[1]++
+	}
+
+	return punteggioFinale
+}
+
+func calcolaGiocata(hand []*pb.Card, tableTop []*pb.Card, history []*pb.Card) *pb.Card {
 
 	mappaPunteggi := make(map[*pb.Card]int)
 	for _, card := range hand {
@@ -377,7 +455,7 @@ func (g *GameSession) runCPUPlayers(player pb.Actor, myChan chan *pb.TurnUpdate)
 				continue
 			}
 
-			cartaScelta := calcolaGiocata(cpuHand, g.tableTop, g.history, g.scoreDeck[int(player)])
+			cartaScelta := calcolaGiocata(cpuHand, g.tableTop, g.history)
 
 			upadateTurnoPlayer := g.tableManager(cartaScelta, player)
 

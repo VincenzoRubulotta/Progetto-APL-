@@ -150,3 +150,66 @@ func (s *server) ObserveTurn(req *pb.ObserveRequest, stream pb.GoBackend_Observe
 		}
 	}
 }
+
+func (s *server) CalcolaPunteggio(ctx context.Context, req *pb.ObserveRequest) (*pb.ScoreUpdate, error) {
+	managerMU.Lock()
+	game, exist := gameManager[int(req.Game_ID)]
+	managerMU.Unlock()
+
+	if !exist {
+		return nil, status.Error(codes.NotFound, "Sessione di gioco non trovata")
+	}
+
+	game.mu.Lock()
+	defer game.mu.Unlock()
+
+	scoreUpdate := &pb.ScoreUpdate{
+		Game_ID: int32(req.Game_ID),
+	}
+
+	punteggio := calcolaRisultati(game)
+
+	scoreUpdate.CpuSquadScore = punteggio[1]
+	scoreUpdate.UserSqudScore = punteggio[0]
+	for i := 0; i < 2; i++ {
+		game.scorePoints[i] = punteggio[i]
+	}
+
+	if punteggio[0] > game.victoryPoints && punteggio[0] > punteggio[1] {
+		scoreUpdate.IsGameOver = true
+		game.isGameOver = true
+		scoreUpdate.UserHand = nil
+	} else if punteggio[1] > game.victoryPoints && punteggio[1] > punteggio[0] {
+		scoreUpdate.IsGameOver = true
+		game.isGameOver = true
+		scoreUpdate.UserHand = nil
+	} else {
+		scoreUpdate.IsGameOver = false
+		game.dealer_ID = (game.dealer_ID + 1) % 4
+		scoreUpdate.NextPlayer_ID = pb.Actor((game.dealer_ID + 1) % 4)
+
+		for i := range game.scorePoints {
+			game.scoreDeck[i] = nil
+			game.mappaScope[i] = 0
+		}
+
+		game.deck = game.history
+		game.history = nil
+
+		rand.Shuffle(len(game.deck), func(i, j int) {
+			game.deck[i], game.deck[j] = game.deck[j], game.deck[i]
+		})
+
+		tempDealer := game.dealer_ID
+		n := 0
+		for i := 1; i <= 4; i++ {
+			tempDealer = (tempDealer + 1) % 4
+			game.hands[pb.Actor(tempDealer)] = game.deck[n : n+10]
+			n = n + 10
+		}
+
+		scoreUpdate.UserHand = game.hands[pb.Actor_USER]
+	}
+
+	return scoreUpdate, nil
+}

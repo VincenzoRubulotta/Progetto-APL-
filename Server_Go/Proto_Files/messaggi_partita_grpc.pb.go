@@ -19,9 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	GoBackend_StartGame_FullMethodName   = "/Scopone_Scientifico.go_backend/start_game"
-	GoBackend_PlayCard_FullMethodName    = "/Scopone_Scientifico.go_backend/play_card"
-	GoBackend_ObserveTurn_FullMethodName = "/Scopone_Scientifico.go_backend/observe_turn"
+	GoBackend_StartGame_FullMethodName        = "/Scopone_Scientifico.go_backend/start_game"
+	GoBackend_PlayCard_FullMethodName         = "/Scopone_Scientifico.go_backend/play_card"
+	GoBackend_ObserveTurn_FullMethodName      = "/Scopone_Scientifico.go_backend/observe_turn"
+	GoBackend_CalcolaPunteggio_FullMethodName = "/Scopone_Scientifico.go_backend/calcola_punteggio"
 )
 
 // GoBackendClient is the client API for GoBackend service.
@@ -31,6 +32,7 @@ type GoBackendClient interface {
 	StartGame(ctx context.Context, in *GameSettings, opts ...grpc.CallOption) (*InitialState, error)
 	PlayCard(ctx context.Context, in *Card, opts ...grpc.CallOption) (grpc.ServerStreamingClient[TurnUpdate], error)
 	ObserveTurn(ctx context.Context, in *ObserveRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[TurnUpdate], error)
+	CalcolaPunteggio(ctx context.Context, in *ObserveRequest, opts ...grpc.CallOption) (*ScoreUpdate, error)
 }
 
 type goBackendClient struct {
@@ -89,6 +91,16 @@ func (c *goBackendClient) ObserveTurn(ctx context.Context, in *ObserveRequest, o
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type GoBackend_ObserveTurnClient = grpc.ServerStreamingClient[TurnUpdate]
 
+func (c *goBackendClient) CalcolaPunteggio(ctx context.Context, in *ObserveRequest, opts ...grpc.CallOption) (*ScoreUpdate, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ScoreUpdate)
+	err := c.cc.Invoke(ctx, GoBackend_CalcolaPunteggio_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // GoBackendServer is the server API for GoBackend service.
 // All implementations must embed UnimplementedGoBackendServer
 // for forward compatibility.
@@ -96,6 +108,7 @@ type GoBackendServer interface {
 	StartGame(context.Context, *GameSettings) (*InitialState, error)
 	PlayCard(*Card, grpc.ServerStreamingServer[TurnUpdate]) error
 	ObserveTurn(*ObserveRequest, grpc.ServerStreamingServer[TurnUpdate]) error
+	CalcolaPunteggio(context.Context, *ObserveRequest) (*ScoreUpdate, error)
 	mustEmbedUnimplementedGoBackendServer()
 }
 
@@ -114,6 +127,9 @@ func (UnimplementedGoBackendServer) PlayCard(*Card, grpc.ServerStreamingServer[T
 }
 func (UnimplementedGoBackendServer) ObserveTurn(*ObserveRequest, grpc.ServerStreamingServer[TurnUpdate]) error {
 	return status.Error(codes.Unimplemented, "method ObserveTurn not implemented")
+}
+func (UnimplementedGoBackendServer) CalcolaPunteggio(context.Context, *ObserveRequest) (*ScoreUpdate, error) {
+	return nil, status.Error(codes.Unimplemented, "method CalcolaPunteggio not implemented")
 }
 func (UnimplementedGoBackendServer) mustEmbedUnimplementedGoBackendServer() {}
 func (UnimplementedGoBackendServer) testEmbeddedByValue()                   {}
@@ -176,6 +192,24 @@ func _GoBackend_ObserveTurn_Handler(srv interface{}, stream grpc.ServerStream) e
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type GoBackend_ObserveTurnServer = grpc.ServerStreamingServer[TurnUpdate]
 
+func _GoBackend_CalcolaPunteggio_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ObserveRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GoBackendServer).CalcolaPunteggio(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: GoBackend_CalcolaPunteggio_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GoBackendServer).CalcolaPunteggio(ctx, req.(*ObserveRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // GoBackend_ServiceDesc is the grpc.ServiceDesc for GoBackend service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -186,6 +220,10 @@ var GoBackend_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "start_game",
 			Handler:    _GoBackend_StartGame_Handler,
+		},
+		{
+			MethodName: "calcola_punteggio",
+			Handler:    _GoBackend_CalcolaPunteggio_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
