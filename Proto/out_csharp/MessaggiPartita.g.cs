@@ -38,19 +38,26 @@ namespace ScoponeScientifico {
             "YXJkGAIgASgLMhkuU2NvcG9uZV9TY2llbnRpZmljby5jYXJkEi4KC2NhcnRl",
             "X3ByZXNlGAMgAygLMhkuU2NvcG9uZV9TY2llbnRpZmljby5jYXJkEg0KBXNj",
             "b3BhGAQgASgIEhUKDWlzX21hdGNoX292ZXIYBSABKAgSMgoObmV4dF9wbGF5",
-            "ZXJfSUQYBiABKA4yGi5TY29wb25lX1NjaWVudGlmaWNvLkFjdG9yKjUKBFN1",
-            "aXQSCgoGREVOQVJJEAASCQoFQ09QUEUQARILCgdCQVNUT05JEAISCQoFU1BB",
-            "REUQAyp8CgRSYW5rEgsKB1VOS05PV04QABIICgRBU1NPEAESBwoDRFVFEAIS",
-            "BwoDVFJFEAMSCwoHUVVBVFRSTxAEEgoKBkNJTlFVRRAFEgcKA1NFSRAGEgkK",
-            "BVNFVFRFEAcSCQoFRkFOVEUQCBILCgdDQVZBTExPEAkSBgoCUkUQCio/CgVB",
-            "Y3RvchIICgRVU0VSEAASDQoJQ1BVX1JJR0hUEAESDwoLQ1BVX1BBUlRORVIQ",
-            "AhIMCghDUFVfTEVGVBADMogCCgpnb19iYWNrZW5kElQKCnN0YXJ0X2dhbWUS",
-            "Ii5TY29wb25lX1NjaWVudGlmaWNvLmdhbWVfc2V0dGluZ3MaIi5TY29wb25l",
-            "X1NjaWVudGlmaWNvLmluaXRpYWxfc3RhdGUSSgoJcGxheV9jYXJkEhkuU2Nv",
-            "cG9uZV9TY2llbnRpZmljby5jYXJkGiAuU2NvcG9uZV9TY2llbnRpZmljby50",
-            "dXJuX3VwZGF0ZTABElgKDG9ic2VydmVfdHVybhIkLlNjb3BvbmVfU2NpZW50",
-            "aWZpY28ub2JzZXJ2ZV9yZXF1ZXN0GiAuU2NvcG9uZV9TY2llbnRpZmljby50",
-            "dXJuX3VwZGF0ZTABQgZaBC4vcGJiBnByb3RvMw=="));
+            "ZXJfSUQYBiABKA4yGi5TY29wb25lX1NjaWVudGlmaWNvLkFjdG9yIskBCgxz",
+            "Y29yZV91cGRhdGUSDwoHZ2FtZV9JRBgBIAEoBRIXCg91c2VyX3NxdWRfc2Nv",
+            "cmUYAiABKAUSFwoPY3B1X3NxdWFkX3Njb3JlGAMgASgFEhQKDGlzX2dhbWVf",
+            "b3ZlchgEIAEoCBIsCgl1c2VyX2hhbmQYBSADKAsyGS5TY29wb25lX1NjaWVu",
+            "dGlmaWNvLmNhcmQSMgoObmV4dF9wbGF5ZXJfSUQYBiABKA4yGi5TY29wb25l",
+            "X1NjaWVudGlmaWNvLkFjdG9yKjUKBFN1aXQSCgoGREVOQVJJEAASCQoFQ09Q",
+            "UEUQARILCgdCQVNUT05JEAISCQoFU1BBREUQAyp8CgRSYW5rEgsKB1VOS05P",
+            "V04QABIICgRBU1NPEAESBwoDRFVFEAISBwoDVFJFEAMSCwoHUVVBVFRSTxAE",
+            "EgoKBkNJTlFVRRAFEgcKA1NFSRAGEgkKBVNFVFRFEAcSCQoFRkFOVEUQCBIL",
+            "CgdDQVZBTExPEAkSBgoCUkUQCio/CgVBY3RvchIICgRVU0VSEAASDQoJQ1BV",
+            "X1JJR0hUEAESDwoLQ1BVX1BBUlRORVIQAhIMCghDUFVfTEVGVBADMuYCCgpn",
+            "b19iYWNrZW5kElQKCnN0YXJ0X2dhbWUSIi5TY29wb25lX1NjaWVudGlmaWNv",
+            "LmdhbWVfc2V0dGluZ3MaIi5TY29wb25lX1NjaWVudGlmaWNvLmluaXRpYWxf",
+            "c3RhdGUSSgoJcGxheV9jYXJkEhkuU2NvcG9uZV9TY2llbnRpZmljby5jYXJk",
+            "GiAuU2NvcG9uZV9TY2llbnRpZmljby50dXJuX3VwZGF0ZTABElgKDG9ic2Vy",
+            "dmVfdHVybhIkLlNjb3BvbmVfU2NpZW50aWZpY28ub2JzZXJ2ZV9yZXF1ZXN0",
+            "GiAuU2NvcG9uZV9TY2llbnRpZmljby50dXJuX3VwZGF0ZTABElwKEWNhbGNv",
+            "bGFfcHVudGVnZ2lvEiQuU2NvcG9uZV9TY2llbnRpZmljby5vYnNlcnZlX3Jl",
+            "cXVlc3QaIS5TY29wb25lX1NjaWVudGlmaWNvLnNjb3JlX3VwZGF0ZUIGWgQu",
+            "L3BiYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::ScoponeScientifico.Suit), typeof(global::ScoponeScientifico.Rank), typeof(global::ScoponeScientifico.Actor), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -58,7 +65,8 @@ namespace ScoponeScientifico {
             new pbr::GeneratedClrTypeInfo(typeof(global::ScoponeScientifico.game_settings), global::ScoponeScientifico.game_settings.Parser, new[]{ "UserName", "MaxPoints" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::ScoponeScientifico.card), global::ScoponeScientifico.card.Parser, new[]{ "GameID", "Suit", "Rank" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::ScoponeScientifico.initial_state), global::ScoponeScientifico.initial_state.Parser, new[]{ "GameID", "UserHand", "DealerID", "CurrentPlayer" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::ScoponeScientifico.turn_update), global::ScoponeScientifico.turn_update.Parser, new[]{ "Actor", "PlayedCard", "CartePrese", "Scopa", "IsMatchOver", "NextPlayerID" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::ScoponeScientifico.turn_update), global::ScoponeScientifico.turn_update.Parser, new[]{ "Actor", "PlayedCard", "CartePrese", "Scopa", "IsMatchOver", "NextPlayerID" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::ScoponeScientifico.score_update), global::ScoponeScientifico.score_update.Parser, new[]{ "GameID", "UserSqudScore", "CpuSquadScore", "IsGameOver", "UserHand", "NextPlayerID" }, null, null, null, null)
           }));
     }
     #endregion
@@ -1467,6 +1475,378 @@ namespace ScoponeScientifico {
           }
           case 40: {
             IsMatchOver = input.ReadBool();
+            break;
+          }
+          case 48: {
+            NextPlayerID = (global::ScoponeScientifico.Actor) input.ReadEnum();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class score_update : pb::IMessage<score_update>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<score_update> _parser = new pb::MessageParser<score_update>(() => new score_update());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<score_update> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::ScoponeScientifico.MessaggiPartitaReflection.Descriptor.MessageTypes[5]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public score_update() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public score_update(score_update other) : this() {
+      gameID_ = other.gameID_;
+      userSqudScore_ = other.userSqudScore_;
+      cpuSquadScore_ = other.cpuSquadScore_;
+      isGameOver_ = other.isGameOver_;
+      userHand_ = other.userHand_.Clone();
+      nextPlayerID_ = other.nextPlayerID_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public score_update Clone() {
+      return new score_update(this);
+    }
+
+    /// <summary>Field number for the "game_ID" field.</summary>
+    public const int GameIDFieldNumber = 1;
+    private int gameID_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int GameID {
+      get { return gameID_; }
+      set {
+        gameID_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "user_squd_score" field.</summary>
+    public const int UserSqudScoreFieldNumber = 2;
+    private int userSqudScore_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int UserSqudScore {
+      get { return userSqudScore_; }
+      set {
+        userSqudScore_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "cpu_squad_score" field.</summary>
+    public const int CpuSquadScoreFieldNumber = 3;
+    private int cpuSquadScore_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CpuSquadScore {
+      get { return cpuSquadScore_; }
+      set {
+        cpuSquadScore_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "is_game_over" field.</summary>
+    public const int IsGameOverFieldNumber = 4;
+    private bool isGameOver_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool IsGameOver {
+      get { return isGameOver_; }
+      set {
+        isGameOver_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "user_hand" field.</summary>
+    public const int UserHandFieldNumber = 5;
+    private static readonly pb::FieldCodec<global::ScoponeScientifico.card> _repeated_userHand_codec
+        = pb::FieldCodec.ForMessage(42, global::ScoponeScientifico.card.Parser);
+    private readonly pbc::RepeatedField<global::ScoponeScientifico.card> userHand_ = new pbc::RepeatedField<global::ScoponeScientifico.card>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::ScoponeScientifico.card> UserHand {
+      get { return userHand_; }
+    }
+
+    /// <summary>Field number for the "next_player_ID" field.</summary>
+    public const int NextPlayerIDFieldNumber = 6;
+    private global::ScoponeScientifico.Actor nextPlayerID_ = global::ScoponeScientifico.Actor.User;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::ScoponeScientifico.Actor NextPlayerID {
+      get { return nextPlayerID_; }
+      set {
+        nextPlayerID_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as score_update);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(score_update other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (GameID != other.GameID) return false;
+      if (UserSqudScore != other.UserSqudScore) return false;
+      if (CpuSquadScore != other.CpuSquadScore) return false;
+      if (IsGameOver != other.IsGameOver) return false;
+      if(!userHand_.Equals(other.userHand_)) return false;
+      if (NextPlayerID != other.NextPlayerID) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (GameID != 0) hash ^= GameID.GetHashCode();
+      if (UserSqudScore != 0) hash ^= UserSqudScore.GetHashCode();
+      if (CpuSquadScore != 0) hash ^= CpuSquadScore.GetHashCode();
+      if (IsGameOver != false) hash ^= IsGameOver.GetHashCode();
+      hash ^= userHand_.GetHashCode();
+      if (NextPlayerID != global::ScoponeScientifico.Actor.User) hash ^= NextPlayerID.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (GameID != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(GameID);
+      }
+      if (UserSqudScore != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(UserSqudScore);
+      }
+      if (CpuSquadScore != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(CpuSquadScore);
+      }
+      if (IsGameOver != false) {
+        output.WriteRawTag(32);
+        output.WriteBool(IsGameOver);
+      }
+      userHand_.WriteTo(output, _repeated_userHand_codec);
+      if (NextPlayerID != global::ScoponeScientifico.Actor.User) {
+        output.WriteRawTag(48);
+        output.WriteEnum((int) NextPlayerID);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (GameID != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(GameID);
+      }
+      if (UserSqudScore != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(UserSqudScore);
+      }
+      if (CpuSquadScore != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(CpuSquadScore);
+      }
+      if (IsGameOver != false) {
+        output.WriteRawTag(32);
+        output.WriteBool(IsGameOver);
+      }
+      userHand_.WriteTo(ref output, _repeated_userHand_codec);
+      if (NextPlayerID != global::ScoponeScientifico.Actor.User) {
+        output.WriteRawTag(48);
+        output.WriteEnum((int) NextPlayerID);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (GameID != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(GameID);
+      }
+      if (UserSqudScore != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(UserSqudScore);
+      }
+      if (CpuSquadScore != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CpuSquadScore);
+      }
+      if (IsGameOver != false) {
+        size += 1 + 1;
+      }
+      size += userHand_.CalculateSize(_repeated_userHand_codec);
+      if (NextPlayerID != global::ScoponeScientifico.Actor.User) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) NextPlayerID);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(score_update other) {
+      if (other == null) {
+        return;
+      }
+      if (other.GameID != 0) {
+        GameID = other.GameID;
+      }
+      if (other.UserSqudScore != 0) {
+        UserSqudScore = other.UserSqudScore;
+      }
+      if (other.CpuSquadScore != 0) {
+        CpuSquadScore = other.CpuSquadScore;
+      }
+      if (other.IsGameOver != false) {
+        IsGameOver = other.IsGameOver;
+      }
+      userHand_.Add(other.userHand_);
+      if (other.NextPlayerID != global::ScoponeScientifico.Actor.User) {
+        NextPlayerID = other.NextPlayerID;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            GameID = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            UserSqudScore = input.ReadInt32();
+            break;
+          }
+          case 24: {
+            CpuSquadScore = input.ReadInt32();
+            break;
+          }
+          case 32: {
+            IsGameOver = input.ReadBool();
+            break;
+          }
+          case 42: {
+            userHand_.AddEntriesFrom(input, _repeated_userHand_codec);
+            break;
+          }
+          case 48: {
+            NextPlayerID = (global::ScoponeScientifico.Actor) input.ReadEnum();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            GameID = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            UserSqudScore = input.ReadInt32();
+            break;
+          }
+          case 24: {
+            CpuSquadScore = input.ReadInt32();
+            break;
+          }
+          case 32: {
+            IsGameOver = input.ReadBool();
+            break;
+          }
+          case 42: {
+            userHand_.AddEntriesFrom(ref input, _repeated_userHand_codec);
             break;
           }
           case 48: {

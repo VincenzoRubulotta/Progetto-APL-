@@ -55,6 +55,8 @@ namespace ScoponeScientifico {
     static readonly grpc::Marshaller<global::ScoponeScientifico.turn_update> __Marshaller_Scopone_Scientifico_turn_update = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ScoponeScientifico.turn_update.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::ScoponeScientifico.observe_request> __Marshaller_Scopone_Scientifico_observe_request = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ScoponeScientifico.observe_request.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::ScoponeScientifico.score_update> __Marshaller_Scopone_Scientifico_score_update = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ScoponeScientifico.score_update.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::ScoponeScientifico.game_settings, global::ScoponeScientifico.initial_state> __Method_start_game = new grpc::Method<global::ScoponeScientifico.game_settings, global::ScoponeScientifico.initial_state>(
@@ -80,6 +82,14 @@ namespace ScoponeScientifico {
         __Marshaller_Scopone_Scientifico_observe_request,
         __Marshaller_Scopone_Scientifico_turn_update);
 
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::ScoponeScientifico.observe_request, global::ScoponeScientifico.score_update> __Method_calcola_punteggio = new grpc::Method<global::ScoponeScientifico.observe_request, global::ScoponeScientifico.score_update>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "calcola_punteggio",
+        __Marshaller_Scopone_Scientifico_observe_request,
+        __Marshaller_Scopone_Scientifico_score_update);
+
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
     {
@@ -104,6 +114,12 @@ namespace ScoponeScientifico {
 
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::System.Threading.Tasks.Task observe_turn(global::ScoponeScientifico.observe_request request, grpc::IServerStreamWriter<global::ScoponeScientifico.turn_update> responseStream, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task<global::ScoponeScientifico.score_update> calcola_punteggio(global::ScoponeScientifico.observe_request request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -177,6 +193,26 @@ namespace ScoponeScientifico {
       {
         return CallInvoker.AsyncServerStreamingCall(__Method_observe_turn, null, options, request);
       }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::ScoponeScientifico.score_update calcola_punteggio(global::ScoponeScientifico.observe_request request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return calcola_punteggio(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::ScoponeScientifico.score_update calcola_punteggio(global::ScoponeScientifico.observe_request request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_calcola_punteggio, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::ScoponeScientifico.score_update> calcola_punteggioAsync(global::ScoponeScientifico.observe_request request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return calcola_punteggioAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::ScoponeScientifico.score_update> calcola_punteggioAsync(global::ScoponeScientifico.observe_request request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_calcola_punteggio, null, options, request);
+      }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       protected override go_backendClient NewInstance(ClientBaseConfiguration configuration)
@@ -193,7 +229,8 @@ namespace ScoponeScientifico {
       return grpc::ServerServiceDefinition.CreateBuilder()
           .AddMethod(__Method_start_game, serviceImpl.start_game)
           .AddMethod(__Method_play_card, serviceImpl.play_card)
-          .AddMethod(__Method_observe_turn, serviceImpl.observe_turn).Build();
+          .AddMethod(__Method_observe_turn, serviceImpl.observe_turn)
+          .AddMethod(__Method_calcola_punteggio, serviceImpl.calcola_punteggio).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -206,6 +243,7 @@ namespace ScoponeScientifico {
       serviceBinder.AddMethod(__Method_start_game, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::ScoponeScientifico.game_settings, global::ScoponeScientifico.initial_state>(serviceImpl.start_game));
       serviceBinder.AddMethod(__Method_play_card, serviceImpl == null ? null : new grpc::ServerStreamingServerMethod<global::ScoponeScientifico.card, global::ScoponeScientifico.turn_update>(serviceImpl.play_card));
       serviceBinder.AddMethod(__Method_observe_turn, serviceImpl == null ? null : new grpc::ServerStreamingServerMethod<global::ScoponeScientifico.observe_request, global::ScoponeScientifico.turn_update>(serviceImpl.observe_turn));
+      serviceBinder.AddMethod(__Method_calcola_punteggio, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::ScoponeScientifico.observe_request, global::ScoponeScientifico.score_update>(serviceImpl.calcola_punteggio));
     }
 
   }
