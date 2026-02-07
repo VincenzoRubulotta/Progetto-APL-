@@ -296,7 +296,6 @@ func (x *GameSettings) GetMaxPoints() int32 {
 
 type Card struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Game_ID       int32                  `protobuf:"varint,1,opt,name=game_ID,json=gameID,proto3" json:"game_ID,omitempty"`
 	Suit          Suit                   `protobuf:"varint,2,opt,name=suit,proto3,enum=Scopone_Scientifico.Suit" json:"suit,omitempty"`
 	Rank          Rank                   `protobuf:"varint,3,opt,name=rank,proto3,enum=Scopone_Scientifico.Rank" json:"rank,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -333,13 +332,6 @@ func (*Card) Descriptor() ([]byte, []int) {
 	return file_messaggi_partita_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *Card) GetGame_ID() int32 {
-	if x != nil {
-		return x.Game_ID
-	}
-	return 0
-}
-
 func (x *Card) GetSuit() Suit {
 	if x != nil {
 		return x.Suit
@@ -354,6 +346,110 @@ func (x *Card) GetRank() Rank {
 	return Rank_UNKNOWN
 }
 
+type PlayRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Game_ID       int32                  `protobuf:"varint,1,opt,name=game_ID,json=gameID,proto3" json:"game_ID,omitempty"`
+	PlayedCard    *Card                  `protobuf:"bytes,2,opt,name=played_card,json=playedCard,proto3" json:"played_card,omitempty"`
+	TargetCard    []*Card                `protobuf:"bytes,3,rep,name=target_card,json=targetCard,proto3" json:"target_card,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *PlayRequest) Reset() {
+	*x = PlayRequest{}
+	mi := &file_messaggi_partita_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PlayRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PlayRequest) ProtoMessage() {}
+
+func (x *PlayRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_messaggi_partita_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PlayRequest.ProtoReflect.Descriptor instead.
+func (*PlayRequest) Descriptor() ([]byte, []int) {
+	return file_messaggi_partita_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *PlayRequest) GetGame_ID() int32 {
+	if x != nil {
+		return x.Game_ID
+	}
+	return 0
+}
+
+func (x *PlayRequest) GetPlayedCard() *Card {
+	if x != nil {
+		return x.PlayedCard
+	}
+	return nil
+}
+
+func (x *PlayRequest) GetTargetCard() []*Card {
+	if x != nil {
+		return x.TargetCard
+	}
+	return nil
+}
+
+type Cobination struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Cards         []*Card                `protobuf:"bytes,1,rep,name=cards,proto3" json:"cards,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Cobination) Reset() {
+	*x = Cobination{}
+	mi := &file_messaggi_partita_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Cobination) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Cobination) ProtoMessage() {}
+
+func (x *Cobination) ProtoReflect() protoreflect.Message {
+	mi := &file_messaggi_partita_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Cobination.ProtoReflect.Descriptor instead.
+func (*Cobination) Descriptor() ([]byte, []int) {
+	return file_messaggi_partita_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *Cobination) GetCards() []*Card {
+	if x != nil {
+		return x.Cards
+	}
+	return nil
+}
+
 type InitialState struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Game_ID       int32                  `protobuf:"varint,1,opt,name=game_ID,json=gameID,proto3" json:"game_ID,omitempty"`
@@ -366,7 +462,7 @@ type InitialState struct {
 
 func (x *InitialState) Reset() {
 	*x = InitialState{}
-	mi := &file_messaggi_partita_proto_msgTypes[3]
+	mi := &file_messaggi_partita_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -378,7 +474,7 @@ func (x *InitialState) String() string {
 func (*InitialState) ProtoMessage() {}
 
 func (x *InitialState) ProtoReflect() protoreflect.Message {
-	mi := &file_messaggi_partita_proto_msgTypes[3]
+	mi := &file_messaggi_partita_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -391,7 +487,7 @@ func (x *InitialState) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InitialState.ProtoReflect.Descriptor instead.
 func (*InitialState) Descriptor() ([]byte, []int) {
-	return file_messaggi_partita_proto_rawDescGZIP(), []int{3}
+	return file_messaggi_partita_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *InitialState) GetGame_ID() int32 {
@@ -423,20 +519,22 @@ func (x *InitialState) GetCurrentPlayer() Actor {
 }
 
 type TurnUpdate struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Actor         Actor                  `protobuf:"varint,1,opt,name=actor,proto3,enum=Scopone_Scientifico.Actor" json:"actor,omitempty"`
-	PlayedCard    *Card                  `protobuf:"bytes,2,opt,name=played_card,json=playedCard,proto3" json:"played_card,omitempty"`
-	CartePrese    []*Card                `protobuf:"bytes,3,rep,name=carte_prese,json=cartePrese,proto3" json:"carte_prese,omitempty"`
-	Scopa         bool                   `protobuf:"varint,4,opt,name=scopa,proto3" json:"scopa,omitempty"`
-	IsMatchOver   bool                   `protobuf:"varint,5,opt,name=is_match_over,json=isMatchOver,proto3" json:"is_match_over,omitempty"`
-	NextPlayer_ID Actor                  `protobuf:"varint,6,opt,name=next_player_ID,json=nextPlayerID,proto3,enum=Scopone_Scientifico.Actor" json:"next_player_ID,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                    protoimpl.MessageState `protogen:"open.v1"`
+	Actor                    Actor                  `protobuf:"varint,1,opt,name=actor,proto3,enum=Scopone_Scientifico.Actor" json:"actor,omitempty"`
+	PlayedCard               *Card                  `protobuf:"bytes,2,opt,name=played_card,json=playedCard,proto3" json:"played_card,omitempty"`
+	CartePrese               []*Card                `protobuf:"bytes,3,rep,name=carte_prese,json=cartePrese,proto3" json:"carte_prese,omitempty"`
+	Scopa                    bool                   `protobuf:"varint,4,opt,name=scopa,proto3" json:"scopa,omitempty"`
+	IsMatchOver              bool                   `protobuf:"varint,5,opt,name=is_match_over,json=isMatchOver,proto3" json:"is_match_over,omitempty"`
+	NextPlayer_ID            Actor                  `protobuf:"varint,6,opt,name=next_player_ID,json=nextPlayerID,proto3,enum=Scopone_Scientifico.Actor" json:"next_player_ID,omitempty"`
+	ConflictResolutionNeeded bool                   `protobuf:"varint,7,opt,name=conflict_resolution_needed,json=conflictResolutionNeeded,proto3" json:"conflict_resolution_needed,omitempty"`
+	Option                   []*Cobination          `protobuf:"bytes,8,rep,name=option,proto3" json:"option,omitempty"`
+	unknownFields            protoimpl.UnknownFields
+	sizeCache                protoimpl.SizeCache
 }
 
 func (x *TurnUpdate) Reset() {
 	*x = TurnUpdate{}
-	mi := &file_messaggi_partita_proto_msgTypes[4]
+	mi := &file_messaggi_partita_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -448,7 +546,7 @@ func (x *TurnUpdate) String() string {
 func (*TurnUpdate) ProtoMessage() {}
 
 func (x *TurnUpdate) ProtoReflect() protoreflect.Message {
-	mi := &file_messaggi_partita_proto_msgTypes[4]
+	mi := &file_messaggi_partita_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -461,7 +559,7 @@ func (x *TurnUpdate) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TurnUpdate.ProtoReflect.Descriptor instead.
 func (*TurnUpdate) Descriptor() ([]byte, []int) {
-	return file_messaggi_partita_proto_rawDescGZIP(), []int{4}
+	return file_messaggi_partita_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *TurnUpdate) GetActor() Actor {
@@ -506,6 +604,20 @@ func (x *TurnUpdate) GetNextPlayer_ID() Actor {
 	return Actor_USER
 }
 
+func (x *TurnUpdate) GetConflictResolutionNeeded() bool {
+	if x != nil {
+		return x.ConflictResolutionNeeded
+	}
+	return false
+}
+
+func (x *TurnUpdate) GetOption() []*Cobination {
+	if x != nil {
+		return x.Option
+	}
+	return nil
+}
+
 type ScoreUpdate struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Game_ID       int32                  `protobuf:"varint,1,opt,name=game_ID,json=gameID,proto3" json:"game_ID,omitempty"`
@@ -520,7 +632,7 @@ type ScoreUpdate struct {
 
 func (x *ScoreUpdate) Reset() {
 	*x = ScoreUpdate{}
-	mi := &file_messaggi_partita_proto_msgTypes[5]
+	mi := &file_messaggi_partita_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -532,7 +644,7 @@ func (x *ScoreUpdate) String() string {
 func (*ScoreUpdate) ProtoMessage() {}
 
 func (x *ScoreUpdate) ProtoReflect() protoreflect.Message {
-	mi := &file_messaggi_partita_proto_msgTypes[5]
+	mi := &file_messaggi_partita_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -545,7 +657,7 @@ func (x *ScoreUpdate) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ScoreUpdate.ProtoReflect.Descriptor instead.
 func (*ScoreUpdate) Descriptor() ([]byte, []int) {
-	return file_messaggi_partita_proto_rawDescGZIP(), []int{5}
+	return file_messaggi_partita_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *ScoreUpdate) GetGame_ID() int32 {
@@ -600,16 +712,24 @@ const file_messaggi_partita_proto_rawDesc = "" +
 	"\rgame_settings\x12\x1b\n" +
 	"\tuser_name\x18\x01 \x01(\tR\buserName\x12\x1d\n" +
 	"\n" +
-	"max_points\x18\x02 \x01(\x05R\tmaxPoints\"}\n" +
-	"\x04card\x12\x17\n" +
-	"\agame_ID\x18\x01 \x01(\x05R\x06gameID\x12-\n" +
+	"max_points\x18\x02 \x01(\x05R\tmaxPoints\"d\n" +
+	"\x04card\x12-\n" +
 	"\x04suit\x18\x02 \x01(\x0e2\x19.Scopone_Scientifico.SuitR\x04suit\x12-\n" +
-	"\x04rank\x18\x03 \x01(\x0e2\x19.Scopone_Scientifico.RankR\x04rank\"\xdc\x01\n" +
+	"\x04rank\x18\x03 \x01(\x0e2\x19.Scopone_Scientifico.RankR\x04rank\"\x9e\x01\n" +
+	"\vPlayRequest\x12\x17\n" +
+	"\agame_ID\x18\x01 \x01(\x05R\x06gameID\x12:\n" +
+	"\vplayed_card\x18\x02 \x01(\v2\x19.Scopone_Scientifico.cardR\n" +
+	"playedCard\x12:\n" +
+	"\vtarget_card\x18\x03 \x03(\v2\x19.Scopone_Scientifico.cardR\n" +
+	"targetCard\"=\n" +
+	"\n" +
+	"Cobination\x12/\n" +
+	"\x05cards\x18\x01 \x03(\v2\x19.Scopone_Scientifico.cardR\x05cards\"\xdc\x01\n" +
 	"\rinitial_state\x12\x17\n" +
 	"\agame_ID\x18\x01 \x01(\x05R\x06gameID\x126\n" +
 	"\tuser_hand\x18\x02 \x03(\v2\x19.Scopone_Scientifico.cardR\buserHand\x127\n" +
 	"\tdealer_ID\x18\x03 \x01(\x0e2\x1a.Scopone_Scientifico.ActorR\bdealerID\x12A\n" +
-	"\x0ecurrent_player\x18\x04 \x01(\x0e2\x1a.Scopone_Scientifico.ActorR\rcurrentPlayer\"\xb3\x02\n" +
+	"\x0ecurrent_player\x18\x04 \x01(\x0e2\x1a.Scopone_Scientifico.ActorR\rcurrentPlayer\"\xaa\x03\n" +
 	"\vturn_update\x120\n" +
 	"\x05actor\x18\x01 \x01(\x0e2\x1a.Scopone_Scientifico.ActorR\x05actor\x12:\n" +
 	"\vplayed_card\x18\x02 \x01(\v2\x19.Scopone_Scientifico.cardR\n" +
@@ -618,7 +738,9 @@ const file_messaggi_partita_proto_rawDesc = "" +
 	"cartePrese\x12\x14\n" +
 	"\x05scopa\x18\x04 \x01(\bR\x05scopa\x12\"\n" +
 	"\ris_match_over\x18\x05 \x01(\bR\visMatchOver\x12@\n" +
-	"\x0enext_player_ID\x18\x06 \x01(\x0e2\x1a.Scopone_Scientifico.ActorR\fnextPlayerID\"\x93\x02\n" +
+	"\x0enext_player_ID\x18\x06 \x01(\x0e2\x1a.Scopone_Scientifico.ActorR\fnextPlayerID\x12<\n" +
+	"\x1aconflict_resolution_needed\x18\a \x01(\bR\x18conflictResolutionNeeded\x127\n" +
+	"\x06option\x18\b \x03(\v2\x1f.Scopone_Scientifico.CobinationR\x06option\"\x93\x02\n" +
 	"\fscore_update\x12\x17\n" +
 	"\agame_ID\x18\x01 \x01(\x05R\x06gameID\x12&\n" +
 	"\x0fuser_squd_score\x18\x02 \x01(\x05R\ruserSqudScore\x12&\n" +
@@ -651,12 +773,12 @@ const file_messaggi_partita_proto_rawDesc = "" +
 	"\x04USER\x10\x00\x12\r\n" +
 	"\tCPU_RIGHT\x10\x01\x12\x0f\n" +
 	"\vCPU_PARTNER\x10\x02\x12\f\n" +
-	"\bCPU_LEFT\x10\x032\xe6\x02\n" +
+	"\bCPU_LEFT\x10\x032\xeb\x02\n" +
 	"\n" +
 	"go_backend\x12T\n" +
 	"\n" +
-	"start_game\x12\".Scopone_Scientifico.game_settings\x1a\".Scopone_Scientifico.initial_state\x12J\n" +
-	"\tplay_card\x12\x19.Scopone_Scientifico.card\x1a .Scopone_Scientifico.turn_update0\x01\x12X\n" +
+	"start_game\x12\".Scopone_Scientifico.game_settings\x1a\".Scopone_Scientifico.initial_state\x12O\n" +
+	"\tplay_card\x12 .Scopone_Scientifico.PlayRequest\x1a .Scopone_Scientifico.turn_update\x12X\n" +
 	"\fobserve_turn\x12$.Scopone_Scientifico.observe_request\x1a .Scopone_Scientifico.turn_update0\x01\x12\\\n" +
 	"\x11calcola_punteggio\x12$.Scopone_Scientifico.observe_request\x1a!.Scopone_Scientifico.score_updateB\x06Z\x04./pbb\x06proto3"
 
@@ -673,7 +795,7 @@ func file_messaggi_partita_proto_rawDescGZIP() []byte {
 }
 
 var file_messaggi_partita_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
-var file_messaggi_partita_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_messaggi_partita_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_messaggi_partita_proto_goTypes = []any{
 	(Suit)(0),              // 0: Scopone_Scientifico.Suit
 	(Rank)(0),              // 1: Scopone_Scientifico.Rank
@@ -681,35 +803,41 @@ var file_messaggi_partita_proto_goTypes = []any{
 	(*ObserveRequest)(nil), // 3: Scopone_Scientifico.observe_request
 	(*GameSettings)(nil),   // 4: Scopone_Scientifico.game_settings
 	(*Card)(nil),           // 5: Scopone_Scientifico.card
-	(*InitialState)(nil),   // 6: Scopone_Scientifico.initial_state
-	(*TurnUpdate)(nil),     // 7: Scopone_Scientifico.turn_update
-	(*ScoreUpdate)(nil),    // 8: Scopone_Scientifico.score_update
+	(*PlayRequest)(nil),    // 6: Scopone_Scientifico.PlayRequest
+	(*Cobination)(nil),     // 7: Scopone_Scientifico.Cobination
+	(*InitialState)(nil),   // 8: Scopone_Scientifico.initial_state
+	(*TurnUpdate)(nil),     // 9: Scopone_Scientifico.turn_update
+	(*ScoreUpdate)(nil),    // 10: Scopone_Scientifico.score_update
 }
 var file_messaggi_partita_proto_depIdxs = []int32{
 	0,  // 0: Scopone_Scientifico.card.suit:type_name -> Scopone_Scientifico.Suit
 	1,  // 1: Scopone_Scientifico.card.rank:type_name -> Scopone_Scientifico.Rank
-	5,  // 2: Scopone_Scientifico.initial_state.user_hand:type_name -> Scopone_Scientifico.card
-	2,  // 3: Scopone_Scientifico.initial_state.dealer_ID:type_name -> Scopone_Scientifico.Actor
-	2,  // 4: Scopone_Scientifico.initial_state.current_player:type_name -> Scopone_Scientifico.Actor
-	2,  // 5: Scopone_Scientifico.turn_update.actor:type_name -> Scopone_Scientifico.Actor
-	5,  // 6: Scopone_Scientifico.turn_update.played_card:type_name -> Scopone_Scientifico.card
-	5,  // 7: Scopone_Scientifico.turn_update.carte_prese:type_name -> Scopone_Scientifico.card
-	2,  // 8: Scopone_Scientifico.turn_update.next_player_ID:type_name -> Scopone_Scientifico.Actor
-	5,  // 9: Scopone_Scientifico.score_update.user_hand:type_name -> Scopone_Scientifico.card
-	2,  // 10: Scopone_Scientifico.score_update.next_player_ID:type_name -> Scopone_Scientifico.Actor
-	4,  // 11: Scopone_Scientifico.go_backend.start_game:input_type -> Scopone_Scientifico.game_settings
-	5,  // 12: Scopone_Scientifico.go_backend.play_card:input_type -> Scopone_Scientifico.card
-	3,  // 13: Scopone_Scientifico.go_backend.observe_turn:input_type -> Scopone_Scientifico.observe_request
-	3,  // 14: Scopone_Scientifico.go_backend.calcola_punteggio:input_type -> Scopone_Scientifico.observe_request
-	6,  // 15: Scopone_Scientifico.go_backend.start_game:output_type -> Scopone_Scientifico.initial_state
-	7,  // 16: Scopone_Scientifico.go_backend.play_card:output_type -> Scopone_Scientifico.turn_update
-	7,  // 17: Scopone_Scientifico.go_backend.observe_turn:output_type -> Scopone_Scientifico.turn_update
-	8,  // 18: Scopone_Scientifico.go_backend.calcola_punteggio:output_type -> Scopone_Scientifico.score_update
-	15, // [15:19] is the sub-list for method output_type
-	11, // [11:15] is the sub-list for method input_type
-	11, // [11:11] is the sub-list for extension type_name
-	11, // [11:11] is the sub-list for extension extendee
-	0,  // [0:11] is the sub-list for field type_name
+	5,  // 2: Scopone_Scientifico.PlayRequest.played_card:type_name -> Scopone_Scientifico.card
+	5,  // 3: Scopone_Scientifico.PlayRequest.target_card:type_name -> Scopone_Scientifico.card
+	5,  // 4: Scopone_Scientifico.Cobination.cards:type_name -> Scopone_Scientifico.card
+	5,  // 5: Scopone_Scientifico.initial_state.user_hand:type_name -> Scopone_Scientifico.card
+	2,  // 6: Scopone_Scientifico.initial_state.dealer_ID:type_name -> Scopone_Scientifico.Actor
+	2,  // 7: Scopone_Scientifico.initial_state.current_player:type_name -> Scopone_Scientifico.Actor
+	2,  // 8: Scopone_Scientifico.turn_update.actor:type_name -> Scopone_Scientifico.Actor
+	5,  // 9: Scopone_Scientifico.turn_update.played_card:type_name -> Scopone_Scientifico.card
+	5,  // 10: Scopone_Scientifico.turn_update.carte_prese:type_name -> Scopone_Scientifico.card
+	2,  // 11: Scopone_Scientifico.turn_update.next_player_ID:type_name -> Scopone_Scientifico.Actor
+	7,  // 12: Scopone_Scientifico.turn_update.option:type_name -> Scopone_Scientifico.Cobination
+	5,  // 13: Scopone_Scientifico.score_update.user_hand:type_name -> Scopone_Scientifico.card
+	2,  // 14: Scopone_Scientifico.score_update.next_player_ID:type_name -> Scopone_Scientifico.Actor
+	4,  // 15: Scopone_Scientifico.go_backend.start_game:input_type -> Scopone_Scientifico.game_settings
+	6,  // 16: Scopone_Scientifico.go_backend.play_card:input_type -> Scopone_Scientifico.PlayRequest
+	3,  // 17: Scopone_Scientifico.go_backend.observe_turn:input_type -> Scopone_Scientifico.observe_request
+	3,  // 18: Scopone_Scientifico.go_backend.calcola_punteggio:input_type -> Scopone_Scientifico.observe_request
+	8,  // 19: Scopone_Scientifico.go_backend.start_game:output_type -> Scopone_Scientifico.initial_state
+	9,  // 20: Scopone_Scientifico.go_backend.play_card:output_type -> Scopone_Scientifico.turn_update
+	9,  // 21: Scopone_Scientifico.go_backend.observe_turn:output_type -> Scopone_Scientifico.turn_update
+	10, // 22: Scopone_Scientifico.go_backend.calcola_punteggio:output_type -> Scopone_Scientifico.score_update
+	19, // [19:23] is the sub-list for method output_type
+	15, // [15:19] is the sub-list for method input_type
+	15, // [15:15] is the sub-list for extension type_name
+	15, // [15:15] is the sub-list for extension extendee
+	0,  // [0:15] is the sub-list for field type_name
 }
 
 func init() { file_messaggi_partita_proto_init() }
@@ -723,7 +851,7 @@ func file_messaggi_partita_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_messaggi_partita_proto_rawDesc), len(file_messaggi_partita_proto_rawDesc)),
 			NumEnums:      3,
-			NumMessages:   6,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

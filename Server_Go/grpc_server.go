@@ -44,7 +44,7 @@ func (s *server) StartGame(ctx context.Context, req *pb.GameSettings) (*pb.Initi
 
 	for i := 1; i <= 4; i++ {
 		for k := 1; k <= 10; k++ {
-			card := &pb.Card{Game_ID: int32(gameID), Suit: pb.Suit(i), Rank: pb.Rank(k)}
+			card := &pb.Card{Suit: pb.Suit(i), Rank: pb.Rank(k)}
 			newGame.deck = append(newGame.deck, card)
 		}
 	}
@@ -79,41 +79,34 @@ func (s *server) StartGame(ctx context.Context, req *pb.GameSettings) (*pb.Initi
 	}, nil
 }
 
-func (s *server) PlayCard(req *pb.Card, stream pb.GoBackend_PlayCardServer) error {
+func (s *server) PlayCard(ctx context.Context, req *pb.PlayRequest) (*pb.TurnUpdate, error) {
 	managerMU.Lock()
 	game, exists := gameManager[int(req.Game_ID)]
 	managerMU.Unlock()
 
 	if !exists {
-		return status.Error(codes.NotFound, "Sessione di gioco non trovata")
+		return nil, status.Error(codes.NotFound, "Sessione di gioco non trovata")
 	}
 
-	canaleRicezione := game.subscribe()
-
 	game.mu.Lock()
+
 	if game.state.NextPlayer_ID != pb.Actor_USER {
-		game.mu.Unlock()
-		return status.Error(codes.FailedPrecondition, "Non è il turno dell'utente")
+		return nil, status.Error(codes.FailedPrecondition, "Non è il turno dell'utente")
 	}
 
 	update := game.tableManager(req, pb.Actor_USER)
 
+	if update.ConflictResolutionNeeded {
+		return update, nil
+	}
+
+	game.state = update
+
+	defer game.mu.Unlock()
+
 	go game.broadcastUpdate(update)
 
-	game.mu.Unlock()
-
-	ctx := stream.Context()
-
-	for {
-		select {
-		case <-ctx.Done():
-			return nil
-		case update := <-canaleRicezione:
-			if err := stream.Send(update); err != nil {
-				return err
-			}
-		}
-	}
+	return update, nil
 }
 
 func (s *server) ObserveTurn(req *pb.ObserveRequest, stream pb.GoBackend_ObserveTurnServer) error {

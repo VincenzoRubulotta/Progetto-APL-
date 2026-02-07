@@ -30,7 +30,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type GoBackendClient interface {
 	StartGame(ctx context.Context, in *GameSettings, opts ...grpc.CallOption) (*InitialState, error)
-	PlayCard(ctx context.Context, in *Card, opts ...grpc.CallOption) (grpc.ServerStreamingClient[TurnUpdate], error)
+	PlayCard(ctx context.Context, in *PlayRequest, opts ...grpc.CallOption) (*TurnUpdate, error)
 	ObserveTurn(ctx context.Context, in *ObserveRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[TurnUpdate], error)
 	CalcolaPunteggio(ctx context.Context, in *ObserveRequest, opts ...grpc.CallOption) (*ScoreUpdate, error)
 }
@@ -53,28 +53,19 @@ func (c *goBackendClient) StartGame(ctx context.Context, in *GameSettings, opts 
 	return out, nil
 }
 
-func (c *goBackendClient) PlayCard(ctx context.Context, in *Card, opts ...grpc.CallOption) (grpc.ServerStreamingClient[TurnUpdate], error) {
+func (c *goBackendClient) PlayCard(ctx context.Context, in *PlayRequest, opts ...grpc.CallOption) (*TurnUpdate, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	stream, err := c.cc.NewStream(ctx, &GoBackend_ServiceDesc.Streams[0], GoBackend_PlayCard_FullMethodName, cOpts...)
+	out := new(TurnUpdate)
+	err := c.cc.Invoke(ctx, GoBackend_PlayCard_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &grpc.GenericClientStream[Card, TurnUpdate]{ClientStream: stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	return x, nil
+	return out, nil
 }
-
-// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type GoBackend_PlayCardClient = grpc.ServerStreamingClient[TurnUpdate]
 
 func (c *goBackendClient) ObserveTurn(ctx context.Context, in *ObserveRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[TurnUpdate], error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	stream, err := c.cc.NewStream(ctx, &GoBackend_ServiceDesc.Streams[1], GoBackend_ObserveTurn_FullMethodName, cOpts...)
+	stream, err := c.cc.NewStream(ctx, &GoBackend_ServiceDesc.Streams[0], GoBackend_ObserveTurn_FullMethodName, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -106,7 +97,7 @@ func (c *goBackendClient) CalcolaPunteggio(ctx context.Context, in *ObserveReque
 // for forward compatibility.
 type GoBackendServer interface {
 	StartGame(context.Context, *GameSettings) (*InitialState, error)
-	PlayCard(*Card, grpc.ServerStreamingServer[TurnUpdate]) error
+	PlayCard(context.Context, *PlayRequest) (*TurnUpdate, error)
 	ObserveTurn(*ObserveRequest, grpc.ServerStreamingServer[TurnUpdate]) error
 	CalcolaPunteggio(context.Context, *ObserveRequest) (*ScoreUpdate, error)
 	mustEmbedUnimplementedGoBackendServer()
@@ -122,8 +113,8 @@ type UnimplementedGoBackendServer struct{}
 func (UnimplementedGoBackendServer) StartGame(context.Context, *GameSettings) (*InitialState, error) {
 	return nil, status.Error(codes.Unimplemented, "method StartGame not implemented")
 }
-func (UnimplementedGoBackendServer) PlayCard(*Card, grpc.ServerStreamingServer[TurnUpdate]) error {
-	return status.Error(codes.Unimplemented, "method PlayCard not implemented")
+func (UnimplementedGoBackendServer) PlayCard(context.Context, *PlayRequest) (*TurnUpdate, error) {
+	return nil, status.Error(codes.Unimplemented, "method PlayCard not implemented")
 }
 func (UnimplementedGoBackendServer) ObserveTurn(*ObserveRequest, grpc.ServerStreamingServer[TurnUpdate]) error {
 	return status.Error(codes.Unimplemented, "method ObserveTurn not implemented")
@@ -170,16 +161,23 @@ func _GoBackend_StartGame_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
-func _GoBackend_PlayCard_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(Card)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
+func _GoBackend_PlayCard_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PlayRequest)
+	if err := dec(in); err != nil {
+		return nil, err
 	}
-	return srv.(GoBackendServer).PlayCard(m, &grpc.GenericServerStream[Card, TurnUpdate]{ServerStream: stream})
+	if interceptor == nil {
+		return srv.(GoBackendServer).PlayCard(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: GoBackend_PlayCard_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GoBackendServer).PlayCard(ctx, req.(*PlayRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
-
-// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type GoBackend_PlayCardServer = grpc.ServerStreamingServer[TurnUpdate]
 
 func _GoBackend_ObserveTurn_Handler(srv interface{}, stream grpc.ServerStream) error {
 	m := new(ObserveRequest)
@@ -222,16 +220,15 @@ var GoBackend_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _GoBackend_StartGame_Handler,
 		},
 		{
+			MethodName: "play_card",
+			Handler:    _GoBackend_PlayCard_Handler,
+		},
+		{
 			MethodName: "calcola_punteggio",
 			Handler:    _GoBackend_CalcolaPunteggio_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
-		{
-			StreamName:    "play_card",
-			Handler:       _GoBackend_PlayCard_Handler,
-			ServerStreams: true,
-		},
 		{
 			StreamName:    "observe_turn",
 			Handler:       _GoBackend_ObserveTurn_Handler,

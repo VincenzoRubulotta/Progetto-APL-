@@ -39,6 +39,19 @@ var valPrimiera = map[pb.Rank]int32{
 	pb.Rank_RE:      10,
 }
 
+func isSameCard(c1, c2 *pb.Card) bool {
+	return c1.Suit == c2.Suit && c1.Rank == c2.Rank
+}
+
+func convertToProtoOption(combos [][]*pb.Card) []*pb.Cobination {
+	var option []*pb.Cobination
+	for _, c := range combos {
+		option = append(option, &pb.Cobination{Cards: c})
+	}
+
+	return option
+}
+
 func calcolaRisultati(game *GameSession) [2]int32 {
 
 	punteggioFinale := [2]int32{game.scorePoints[0], game.scorePoints[1]}
@@ -349,12 +362,12 @@ func trovaCombinazioni(cards []*pb.Card, target int32) [][]*pb.Card {
 	return risultati
 }
 
-func (g *GameSession) tableManager(req *pb.Card, player pb.Actor) *pb.TurnUpdate {
-	g.mu.Lock()
-	defer g.mu.Unlock()
+func (g *GameSession) tableManager(req *pb.PlayRequest, player pb.Actor) *pb.TurnUpdate {
+
+	cartaGiocata := req.PlayedCard
 
 	for i, card := range g.hands[player] {
-		if card.Game_ID == req.Game_ID && card.Suit == req.Suit && card.Rank == req.Rank {
+		if isSameCard(card, cartaGiocata) {
 			g.hands[player] = append(g.hands[player][:i], g.hands[player][i+1:]...) // eliminazione carta dalla mano utente
 			break
 		}
@@ -363,18 +376,20 @@ func (g *GameSession) tableManager(req *pb.Card, player pb.Actor) *pb.TurnUpdate
 	update := &pb.TurnUpdate{
 		Actor:         player,
 		NextPlayer_ID: pb.Actor((int(player) + 1) % 4),
-		PlayedCard:    req,
+		PlayedCard:    cartaGiocata,
 		IsMatchOver:   false,
 	}
 
+	//logica nel caso in cui la carta giocata corrisponde con una a terra
 	for i, card := range g.tableTop {
-		if card.Game_ID == req.Game_ID && card.Rank == req.Rank {
+		if card.Rank == cartaGiocata.Rank {
 			g.tableTop = append(g.tableTop[:i], g.tableTop[i+1:]...)
 			g.history = append(g.history, card)
-			g.history = append(g.history, req)
+			g.history = append(g.history, cartaGiocata)
 			update.CartePrese = append(update.CartePrese, card)
-			update.CartePrese = append(update.CartePrese, req)
-			g.scoreDeck[int(player)] = append(g.scoreDeck[int(player)], card, req)
+			update.CartePrese = append(update.CartePrese, cartaGiocata)
+			g.scoreDeck[int(player)] = append(g.scoreDeck[int(player)], card, cartaGiocata)
+
 			if len(g.tableTop) == 0 {
 				update.Scopa = true
 				g.mappaScope[int(player)]++
@@ -388,20 +403,22 @@ func (g *GameSession) tableManager(req *pb.Card, player pb.Actor) *pb.TurnUpdate
 		}
 	}
 
-	combinazioniTotali := trovaCombinazioni(g.tableTop, int32(req.Rank))
+	combinazioniTotali := trovaCombinazioni(g.tableTop, int32(cartaGiocata.Rank))
 
 	if len(combinazioniTotali) == 0 {
-		g.tableTop = append(g.tableTop, req)
+
+		g.tableTop = append(g.tableTop, cartaGiocata)
 		update.CartePrese = nil
 
 		g.controlloFineRound(update, player)
 
 		return update
+
 	} else if len(combinazioniTotali) == 1 {
 		combinazione := combinazioniTotali[0]
 		for _, card := range combinazione {
 			for i, tableCard := range g.tableTop {
-				if tableCard.Game_ID == card.Game_ID && tableCard.Suit == card.Suit && tableCard.Rank == card.Rank {
+				if tableCard.Suit == card.Suit && tableCard.Rank == card.Rank {
 					g.tableTop = append(g.tableTop[:i], g.tableTop[i+1:]...)
 					g.history = append(g.history, tableCard)
 					update.CartePrese = append(update.CartePrese, tableCard)
@@ -410,9 +427,9 @@ func (g *GameSession) tableManager(req *pb.Card, player pb.Actor) *pb.TurnUpdate
 				}
 			}
 		}
-		g.history = append(g.history, req)
-		update.CartePrese = append(update.CartePrese, req)
-		g.scoreDeck[int(player)] = append(g.scoreDeck[int(player)], req)
+		g.history = append(g.history, cartaGiocata)
+		update.CartePrese = append(update.CartePrese, cartaGiocata)
+		g.scoreDeck[int(player)] = append(g.scoreDeck[int(player)], cartaGiocata)
 
 		if len(g.tableTop) == 0 {
 			update.Scopa = true
@@ -425,18 +442,29 @@ func (g *GameSession) tableManager(req *pb.Card, player pb.Actor) *pb.TurnUpdate
 		return update
 
 	} else if len(combinazioniTotali) > 1 {
-		punteggiomax := 0
-		for _, combinazione := range combinazioniTotali {
-			punteggioAttuale := calcolaPunteggioCombinazione(combinazione)
-			if punteggioAttuale > punteggiomax {
-				punteggiomax = punteggioAttuale
-				update.CartePrese = combinazione
+		if player == pb.Actor_USER {
+			if len(req.TargetCard) == 0 {
+				g.hands[player] = append(g.hands[player], cartaGiocata)
+				return &pb.TurnUpdate{
+					ConflictResolutionNeeded: true,
+					Option:                   convertToProtoOption(combinazioniTotali),
+				}
+			}
+		} else {
+
+			punteggiomax := 0
+			for _, combinazione := range combinazioniTotali {
+				punteggioAttuale := calcolaPunteggioCombinazione(combinazione)
+				if punteggioAttuale > punteggiomax {
+					punteggiomax = punteggioAttuale
+					update.CartePrese = combinazione
+				}
 			}
 		}
 
 		for _, card := range update.CartePrese {
 			for i, tableCard := range g.tableTop {
-				if tableCard.Game_ID == card.Game_ID && tableCard.Suit == card.Suit && tableCard.Rank == card.Rank {
+				if tableCard.Suit == card.Suit && tableCard.Rank == card.Rank {
 					g.tableTop = append(g.tableTop[:i], g.tableTop[i+1:]...)
 					g.history = append(g.history, tableCard)
 					g.scoreDeck[int(player)] = append(g.scoreDeck[int(player)], tableCard)
@@ -445,9 +473,9 @@ func (g *GameSession) tableManager(req *pb.Card, player pb.Actor) *pb.TurnUpdate
 			}
 		}
 
-		g.history = append(g.history, req)
-		update.CartePrese = append(update.CartePrese, req)
-		g.scoreDeck[int(player)] = append(g.scoreDeck[int(player)], req)
+		g.history = append(g.history, cartaGiocata)
+		update.CartePrese = append(update.CartePrese, cartaGiocata)
+		g.scoreDeck[int(player)] = append(g.scoreDeck[int(player)], cartaGiocata)
 		if len(g.tableTop) == 0 {
 			update.Scopa = true
 			g.mappaScope[int(player)]++
@@ -474,11 +502,17 @@ func (g *GameSession) runCPUPlayers(player pb.Actor, myChan chan *pb.TurnUpdate)
 
 			cartaScelta := calcolaGiocata(g.hands[player], g.tableTop, g.history)
 
-			upadateTurnoPlayer := g.tableManager(cartaScelta, player)
+			fakePlayrequest := &pb.PlayRequest{
+				PlayedCard: cartaScelta,
+			}
 
-			go g.broadcastUpdate(upadateTurnoPlayer)
+			upadateTurnoPlayer := g.tableManager(fakePlayrequest, player)
+
+			g.state = upadateTurnoPlayer
 
 			g.mu.Unlock()
+
+			go g.broadcastUpdate(upadateTurnoPlayer)
 		}
 	}
 }

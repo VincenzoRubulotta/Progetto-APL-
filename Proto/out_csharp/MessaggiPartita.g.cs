@@ -27,45 +27,52 @@ namespace ScoponeScientifico {
             "ChZtZXNzYWdnaV9wYXJ0aXRhLnByb3RvEhNTY29wb25lX1NjaWVudGlmaWNv",
             "IiIKD29ic2VydmVfcmVxdWVzdBIPCgdnYW1lX0lEGAEgASgFIjYKDWdhbWVf",
             "c2V0dGluZ3MSEQoJdXNlcl9uYW1lGAEgASgJEhIKCm1heF9wb2ludHMYAiAB",
-            "KAUiaQoEY2FyZBIPCgdnYW1lX0lEGAEgASgFEicKBHN1aXQYAiABKA4yGS5T",
-            "Y29wb25lX1NjaWVudGlmaWNvLlN1aXQSJwoEcmFuaxgDIAEoDjIZLlNjb3Bv",
-            "bmVfU2NpZW50aWZpY28uUmFuayKxAQoNaW5pdGlhbF9zdGF0ZRIPCgdnYW1l",
-            "X0lEGAEgASgFEiwKCXVzZXJfaGFuZBgCIAMoCzIZLlNjb3BvbmVfU2NpZW50",
-            "aWZpY28uY2FyZBItCglkZWFsZXJfSUQYAyABKA4yGi5TY29wb25lX1NjaWVu",
-            "dGlmaWNvLkFjdG9yEjIKDmN1cnJlbnRfcGxheWVyGAQgASgOMhouU2NvcG9u",
-            "ZV9TY2llbnRpZmljby5BY3RvciLyAQoLdHVybl91cGRhdGUSKQoFYWN0b3IY",
-            "ASABKA4yGi5TY29wb25lX1NjaWVudGlmaWNvLkFjdG9yEi4KC3BsYXllZF9j",
-            "YXJkGAIgASgLMhkuU2NvcG9uZV9TY2llbnRpZmljby5jYXJkEi4KC2NhcnRl",
-            "X3ByZXNlGAMgAygLMhkuU2NvcG9uZV9TY2llbnRpZmljby5jYXJkEg0KBXNj",
-            "b3BhGAQgASgIEhUKDWlzX21hdGNoX292ZXIYBSABKAgSMgoObmV4dF9wbGF5",
-            "ZXJfSUQYBiABKA4yGi5TY29wb25lX1NjaWVudGlmaWNvLkFjdG9yIskBCgxz",
-            "Y29yZV91cGRhdGUSDwoHZ2FtZV9JRBgBIAEoBRIXCg91c2VyX3NxdWRfc2Nv",
-            "cmUYAiABKAUSFwoPY3B1X3NxdWFkX3Njb3JlGAMgASgFEhQKDGlzX2dhbWVf",
-            "b3ZlchgEIAEoCBIsCgl1c2VyX2hhbmQYBSADKAsyGS5TY29wb25lX1NjaWVu",
-            "dGlmaWNvLmNhcmQSMgoObmV4dF9wbGF5ZXJfSUQYBiABKA4yGi5TY29wb25l",
-            "X1NjaWVudGlmaWNvLkFjdG9yKjUKBFN1aXQSCgoGREVOQVJJEAASCQoFQ09Q",
-            "UEUQARILCgdCQVNUT05JEAISCQoFU1BBREUQAyp8CgRSYW5rEgsKB1VOS05P",
-            "V04QABIICgRBU1NPEAESBwoDRFVFEAISBwoDVFJFEAMSCwoHUVVBVFRSTxAE",
-            "EgoKBkNJTlFVRRAFEgcKA1NFSRAGEgkKBVNFVFRFEAcSCQoFRkFOVEUQCBIL",
-            "CgdDQVZBTExPEAkSBgoCUkUQCio/CgVBY3RvchIICgRVU0VSEAASDQoJQ1BV",
-            "X1JJR0hUEAESDwoLQ1BVX1BBUlRORVIQAhIMCghDUFVfTEVGVBADMuYCCgpn",
-            "b19iYWNrZW5kElQKCnN0YXJ0X2dhbWUSIi5TY29wb25lX1NjaWVudGlmaWNv",
-            "LmdhbWVfc2V0dGluZ3MaIi5TY29wb25lX1NjaWVudGlmaWNvLmluaXRpYWxf",
-            "c3RhdGUSSgoJcGxheV9jYXJkEhkuU2NvcG9uZV9TY2llbnRpZmljby5jYXJk",
-            "GiAuU2NvcG9uZV9TY2llbnRpZmljby50dXJuX3VwZGF0ZTABElgKDG9ic2Vy",
-            "dmVfdHVybhIkLlNjb3BvbmVfU2NpZW50aWZpY28ub2JzZXJ2ZV9yZXF1ZXN0",
-            "GiAuU2NvcG9uZV9TY2llbnRpZmljby50dXJuX3VwZGF0ZTABElwKEWNhbGNv",
-            "bGFfcHVudGVnZ2lvEiQuU2NvcG9uZV9TY2llbnRpZmljby5vYnNlcnZlX3Jl",
-            "cXVlc3QaIS5TY29wb25lX1NjaWVudGlmaWNvLnNjb3JlX3VwZGF0ZUIGWgQu",
-            "L3BiYgZwcm90bzM="));
+            "KAUiWAoEY2FyZBInCgRzdWl0GAIgASgOMhkuU2NvcG9uZV9TY2llbnRpZmlj",
+            "by5TdWl0EicKBHJhbmsYAyABKA4yGS5TY29wb25lX1NjaWVudGlmaWNvLlJh",
+            "bmsifgoLUGxheVJlcXVlc3QSDwoHZ2FtZV9JRBgBIAEoBRIuCgtwbGF5ZWRf",
+            "Y2FyZBgCIAEoCzIZLlNjb3BvbmVfU2NpZW50aWZpY28uY2FyZBIuCgt0YXJn",
+            "ZXRfY2FyZBgDIAMoCzIZLlNjb3BvbmVfU2NpZW50aWZpY28uY2FyZCI2CgpD",
+            "b2JpbmF0aW9uEigKBWNhcmRzGAEgAygLMhkuU2NvcG9uZV9TY2llbnRpZmlj",
+            "by5jYXJkIrEBCg1pbml0aWFsX3N0YXRlEg8KB2dhbWVfSUQYASABKAUSLAoJ",
+            "dXNlcl9oYW5kGAIgAygLMhkuU2NvcG9uZV9TY2llbnRpZmljby5jYXJkEi0K",
+            "CWRlYWxlcl9JRBgDIAEoDjIaLlNjb3BvbmVfU2NpZW50aWZpY28uQWN0b3IS",
+            "MgoOY3VycmVudF9wbGF5ZXIYBCABKA4yGi5TY29wb25lX1NjaWVudGlmaWNv",
+            "LkFjdG9yIscCCgt0dXJuX3VwZGF0ZRIpCgVhY3RvchgBIAEoDjIaLlNjb3Bv",
+            "bmVfU2NpZW50aWZpY28uQWN0b3ISLgoLcGxheWVkX2NhcmQYAiABKAsyGS5T",
+            "Y29wb25lX1NjaWVudGlmaWNvLmNhcmQSLgoLY2FydGVfcHJlc2UYAyADKAsy",
+            "GS5TY29wb25lX1NjaWVudGlmaWNvLmNhcmQSDQoFc2NvcGEYBCABKAgSFQoN",
+            "aXNfbWF0Y2hfb3ZlchgFIAEoCBIyCg5uZXh0X3BsYXllcl9JRBgGIAEoDjIa",
+            "LlNjb3BvbmVfU2NpZW50aWZpY28uQWN0b3ISIgoaY29uZmxpY3RfcmVzb2x1",
+            "dGlvbl9uZWVkZWQYByABKAgSLwoGb3B0aW9uGAggAygLMh8uU2NvcG9uZV9T",
+            "Y2llbnRpZmljby5Db2JpbmF0aW9uIskBCgxzY29yZV91cGRhdGUSDwoHZ2Ft",
+            "ZV9JRBgBIAEoBRIXCg91c2VyX3NxdWRfc2NvcmUYAiABKAUSFwoPY3B1X3Nx",
+            "dWFkX3Njb3JlGAMgASgFEhQKDGlzX2dhbWVfb3ZlchgEIAEoCBIsCgl1c2Vy",
+            "X2hhbmQYBSADKAsyGS5TY29wb25lX1NjaWVudGlmaWNvLmNhcmQSMgoObmV4",
+            "dF9wbGF5ZXJfSUQYBiABKA4yGi5TY29wb25lX1NjaWVudGlmaWNvLkFjdG9y",
+            "KjUKBFN1aXQSCgoGREVOQVJJEAASCQoFQ09QUEUQARILCgdCQVNUT05JEAIS",
+            "CQoFU1BBREUQAyp8CgRSYW5rEgsKB1VOS05PV04QABIICgRBU1NPEAESBwoD",
+            "RFVFEAISBwoDVFJFEAMSCwoHUVVBVFRSTxAEEgoKBkNJTlFVRRAFEgcKA1NF",
+            "SRAGEgkKBVNFVFRFEAcSCQoFRkFOVEUQCBILCgdDQVZBTExPEAkSBgoCUkUQ",
+            "Cio/CgVBY3RvchIICgRVU0VSEAASDQoJQ1BVX1JJR0hUEAESDwoLQ1BVX1BB",
+            "UlRORVIQAhIMCghDUFVfTEVGVBADMusCCgpnb19iYWNrZW5kElQKCnN0YXJ0",
+            "X2dhbWUSIi5TY29wb25lX1NjaWVudGlmaWNvLmdhbWVfc2V0dGluZ3MaIi5T",
+            "Y29wb25lX1NjaWVudGlmaWNvLmluaXRpYWxfc3RhdGUSTwoJcGxheV9jYXJk",
+            "EiAuU2NvcG9uZV9TY2llbnRpZmljby5QbGF5UmVxdWVzdBogLlNjb3BvbmVf",
+            "U2NpZW50aWZpY28udHVybl91cGRhdGUSWAoMb2JzZXJ2ZV90dXJuEiQuU2Nv",
+            "cG9uZV9TY2llbnRpZmljby5vYnNlcnZlX3JlcXVlc3QaIC5TY29wb25lX1Nj",
+            "aWVudGlmaWNvLnR1cm5fdXBkYXRlMAESXAoRY2FsY29sYV9wdW50ZWdnaW8S",
+            "JC5TY29wb25lX1NjaWVudGlmaWNvLm9ic2VydmVfcmVxdWVzdBohLlNjb3Bv",
+            "bmVfU2NpZW50aWZpY28uc2NvcmVfdXBkYXRlQgZaBC4vcGJiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::ScoponeScientifico.Suit), typeof(global::ScoponeScientifico.Rank), typeof(global::ScoponeScientifico.Actor), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::ScoponeScientifico.observe_request), global::ScoponeScientifico.observe_request.Parser, new[]{ "GameID" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::ScoponeScientifico.game_settings), global::ScoponeScientifico.game_settings.Parser, new[]{ "UserName", "MaxPoints" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::ScoponeScientifico.card), global::ScoponeScientifico.card.Parser, new[]{ "GameID", "Suit", "Rank" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::ScoponeScientifico.card), global::ScoponeScientifico.card.Parser, new[]{ "Suit", "Rank" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::ScoponeScientifico.PlayRequest), global::ScoponeScientifico.PlayRequest.Parser, new[]{ "GameID", "PlayedCard", "TargetCard" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::ScoponeScientifico.Cobination), global::ScoponeScientifico.Cobination.Parser, new[]{ "Cards" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::ScoponeScientifico.initial_state), global::ScoponeScientifico.initial_state.Parser, new[]{ "GameID", "UserHand", "DealerID", "CurrentPlayer" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::ScoponeScientifico.turn_update), global::ScoponeScientifico.turn_update.Parser, new[]{ "Actor", "PlayedCard", "CartePrese", "Scopa", "IsMatchOver", "NextPlayerID" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::ScoponeScientifico.turn_update), global::ScoponeScientifico.turn_update.Parser, new[]{ "Actor", "PlayedCard", "CartePrese", "Scopa", "IsMatchOver", "NextPlayerID", "ConflictResolutionNeeded", "Option" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::ScoponeScientifico.score_update), global::ScoponeScientifico.score_update.Parser, new[]{ "GameID", "UserSqudScore", "CpuSquadScore", "IsGameOver", "UserHand", "NextPlayerID" }, null, null, null, null)
           }));
     }
@@ -572,7 +579,6 @@ namespace ScoponeScientifico {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public card(card other) : this() {
-      gameID_ = other.gameID_;
       suit_ = other.suit_;
       rank_ = other.rank_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -582,18 +588,6 @@ namespace ScoponeScientifico {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public card Clone() {
       return new card(this);
-    }
-
-    /// <summary>Field number for the "game_ID" field.</summary>
-    public const int GameIDFieldNumber = 1;
-    private int gameID_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int GameID {
-      get { return gameID_; }
-      set {
-        gameID_ = value;
-      }
     }
 
     /// <summary>Field number for the "suit" field.</summary>
@@ -635,7 +629,6 @@ namespace ScoponeScientifico {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (GameID != other.GameID) return false;
       if (Suit != other.Suit) return false;
       if (Rank != other.Rank) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -645,7 +638,6 @@ namespace ScoponeScientifico {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (GameID != 0) hash ^= GameID.GetHashCode();
       if (Suit != global::ScoponeScientifico.Suit.Denari) hash ^= Suit.GetHashCode();
       if (Rank != global::ScoponeScientifico.Rank.Unknown) hash ^= Rank.GetHashCode();
       if (_unknownFields != null) {
@@ -666,10 +658,6 @@ namespace ScoponeScientifico {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (GameID != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(GameID);
-      }
       if (Suit != global::ScoponeScientifico.Suit.Denari) {
         output.WriteRawTag(16);
         output.WriteEnum((int) Suit);
@@ -688,10 +676,6 @@ namespace ScoponeScientifico {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (GameID != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(GameID);
-      }
       if (Suit != global::ScoponeScientifico.Suit.Denari) {
         output.WriteRawTag(16);
         output.WriteEnum((int) Suit);
@@ -710,9 +694,6 @@ namespace ScoponeScientifico {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (GameID != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(GameID);
-      }
       if (Suit != global::ScoponeScientifico.Suit.Denari) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Suit);
       }
@@ -730,9 +711,6 @@ namespace ScoponeScientifico {
     public void MergeFrom(card other) {
       if (other == null) {
         return;
-      }
-      if (other.GameID != 0) {
-        GameID = other.GameID;
       }
       if (other.Suit != global::ScoponeScientifico.Suit.Denari) {
         Suit = other.Suit;
@@ -759,10 +737,6 @@ namespace ScoponeScientifico {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            GameID = input.ReadInt32();
-            break;
-          }
           case 16: {
             Suit = (global::ScoponeScientifico.Suit) input.ReadEnum();
             break;
@@ -790,16 +764,469 @@ namespace ScoponeScientifico {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            GameID = input.ReadInt32();
-            break;
-          }
           case 16: {
             Suit = (global::ScoponeScientifico.Suit) input.ReadEnum();
             break;
           }
           case 24: {
             Rank = (global::ScoponeScientifico.Rank) input.ReadEnum();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class PlayRequest : pb::IMessage<PlayRequest>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<PlayRequest> _parser = new pb::MessageParser<PlayRequest>(() => new PlayRequest());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<PlayRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::ScoponeScientifico.MessaggiPartitaReflection.Descriptor.MessageTypes[3]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public PlayRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public PlayRequest(PlayRequest other) : this() {
+      gameID_ = other.gameID_;
+      playedCard_ = other.playedCard_ != null ? other.playedCard_.Clone() : null;
+      targetCard_ = other.targetCard_.Clone();
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public PlayRequest Clone() {
+      return new PlayRequest(this);
+    }
+
+    /// <summary>Field number for the "game_ID" field.</summary>
+    public const int GameIDFieldNumber = 1;
+    private int gameID_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int GameID {
+      get { return gameID_; }
+      set {
+        gameID_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "played_card" field.</summary>
+    public const int PlayedCardFieldNumber = 2;
+    private global::ScoponeScientifico.card playedCard_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::ScoponeScientifico.card PlayedCard {
+      get { return playedCard_; }
+      set {
+        playedCard_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "target_card" field.</summary>
+    public const int TargetCardFieldNumber = 3;
+    private static readonly pb::FieldCodec<global::ScoponeScientifico.card> _repeated_targetCard_codec
+        = pb::FieldCodec.ForMessage(26, global::ScoponeScientifico.card.Parser);
+    private readonly pbc::RepeatedField<global::ScoponeScientifico.card> targetCard_ = new pbc::RepeatedField<global::ScoponeScientifico.card>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::ScoponeScientifico.card> TargetCard {
+      get { return targetCard_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as PlayRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(PlayRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (GameID != other.GameID) return false;
+      if (!object.Equals(PlayedCard, other.PlayedCard)) return false;
+      if(!targetCard_.Equals(other.targetCard_)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (GameID != 0) hash ^= GameID.GetHashCode();
+      if (playedCard_ != null) hash ^= PlayedCard.GetHashCode();
+      hash ^= targetCard_.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (GameID != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(GameID);
+      }
+      if (playedCard_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(PlayedCard);
+      }
+      targetCard_.WriteTo(output, _repeated_targetCard_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (GameID != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(GameID);
+      }
+      if (playedCard_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(PlayedCard);
+      }
+      targetCard_.WriteTo(ref output, _repeated_targetCard_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (GameID != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(GameID);
+      }
+      if (playedCard_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(PlayedCard);
+      }
+      size += targetCard_.CalculateSize(_repeated_targetCard_codec);
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(PlayRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.GameID != 0) {
+        GameID = other.GameID;
+      }
+      if (other.playedCard_ != null) {
+        if (playedCard_ == null) {
+          PlayedCard = new global::ScoponeScientifico.card();
+        }
+        PlayedCard.MergeFrom(other.PlayedCard);
+      }
+      targetCard_.Add(other.targetCard_);
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            GameID = input.ReadInt32();
+            break;
+          }
+          case 18: {
+            if (playedCard_ == null) {
+              PlayedCard = new global::ScoponeScientifico.card();
+            }
+            input.ReadMessage(PlayedCard);
+            break;
+          }
+          case 26: {
+            targetCard_.AddEntriesFrom(input, _repeated_targetCard_codec);
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            GameID = input.ReadInt32();
+            break;
+          }
+          case 18: {
+            if (playedCard_ == null) {
+              PlayedCard = new global::ScoponeScientifico.card();
+            }
+            input.ReadMessage(PlayedCard);
+            break;
+          }
+          case 26: {
+            targetCard_.AddEntriesFrom(ref input, _repeated_targetCard_codec);
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class Cobination : pb::IMessage<Cobination>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<Cobination> _parser = new pb::MessageParser<Cobination>(() => new Cobination());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<Cobination> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::ScoponeScientifico.MessaggiPartitaReflection.Descriptor.MessageTypes[4]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public Cobination() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public Cobination(Cobination other) : this() {
+      cards_ = other.cards_.Clone();
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public Cobination Clone() {
+      return new Cobination(this);
+    }
+
+    /// <summary>Field number for the "cards" field.</summary>
+    public const int CardsFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::ScoponeScientifico.card> _repeated_cards_codec
+        = pb::FieldCodec.ForMessage(10, global::ScoponeScientifico.card.Parser);
+    private readonly pbc::RepeatedField<global::ScoponeScientifico.card> cards_ = new pbc::RepeatedField<global::ScoponeScientifico.card>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::ScoponeScientifico.card> Cards {
+      get { return cards_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as Cobination);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(Cobination other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if(!cards_.Equals(other.cards_)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= cards_.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      cards_.WriteTo(output, _repeated_cards_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      cards_.WriteTo(ref output, _repeated_cards_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      size += cards_.CalculateSize(_repeated_cards_codec);
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(Cobination other) {
+      if (other == null) {
+        return;
+      }
+      cards_.Add(other.cards_);
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            cards_.AddEntriesFrom(input, _repeated_cards_codec);
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            cards_.AddEntriesFrom(ref input, _repeated_cards_codec);
             break;
           }
         }
@@ -824,7 +1251,7 @@ namespace ScoponeScientifico {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::ScoponeScientifico.MessaggiPartitaReflection.Descriptor.MessageTypes[3]; }
+      get { return global::ScoponeScientifico.MessaggiPartitaReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1122,7 +1549,7 @@ namespace ScoponeScientifico {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::ScoponeScientifico.MessaggiPartitaReflection.Descriptor.MessageTypes[4]; }
+      get { return global::ScoponeScientifico.MessaggiPartitaReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1148,6 +1575,8 @@ namespace ScoponeScientifico {
       scopa_ = other.scopa_;
       isMatchOver_ = other.isMatchOver_;
       nextPlayerID_ = other.nextPlayerID_;
+      conflictResolutionNeeded_ = other.conflictResolutionNeeded_;
+      option_ = other.option_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1228,6 +1657,29 @@ namespace ScoponeScientifico {
       }
     }
 
+    /// <summary>Field number for the "conflict_resolution_needed" field.</summary>
+    public const int ConflictResolutionNeededFieldNumber = 7;
+    private bool conflictResolutionNeeded_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool ConflictResolutionNeeded {
+      get { return conflictResolutionNeeded_; }
+      set {
+        conflictResolutionNeeded_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "option" field.</summary>
+    public const int OptionFieldNumber = 8;
+    private static readonly pb::FieldCodec<global::ScoponeScientifico.Cobination> _repeated_option_codec
+        = pb::FieldCodec.ForMessage(66, global::ScoponeScientifico.Cobination.Parser);
+    private readonly pbc::RepeatedField<global::ScoponeScientifico.Cobination> option_ = new pbc::RepeatedField<global::ScoponeScientifico.Cobination>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::ScoponeScientifico.Cobination> Option {
+      get { return option_; }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1249,6 +1701,8 @@ namespace ScoponeScientifico {
       if (Scopa != other.Scopa) return false;
       if (IsMatchOver != other.IsMatchOver) return false;
       if (NextPlayerID != other.NextPlayerID) return false;
+      if (ConflictResolutionNeeded != other.ConflictResolutionNeeded) return false;
+      if(!option_.Equals(other.option_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1262,6 +1716,8 @@ namespace ScoponeScientifico {
       if (Scopa != false) hash ^= Scopa.GetHashCode();
       if (IsMatchOver != false) hash ^= IsMatchOver.GetHashCode();
       if (NextPlayerID != global::ScoponeScientifico.Actor.User) hash ^= NextPlayerID.GetHashCode();
+      if (ConflictResolutionNeeded != false) hash ^= ConflictResolutionNeeded.GetHashCode();
+      hash ^= option_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1301,6 +1757,11 @@ namespace ScoponeScientifico {
         output.WriteRawTag(48);
         output.WriteEnum((int) NextPlayerID);
       }
+      if (ConflictResolutionNeeded != false) {
+        output.WriteRawTag(56);
+        output.WriteBool(ConflictResolutionNeeded);
+      }
+      option_.WriteTo(output, _repeated_option_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1332,6 +1793,11 @@ namespace ScoponeScientifico {
         output.WriteRawTag(48);
         output.WriteEnum((int) NextPlayerID);
       }
+      if (ConflictResolutionNeeded != false) {
+        output.WriteRawTag(56);
+        output.WriteBool(ConflictResolutionNeeded);
+      }
+      option_.WriteTo(ref output, _repeated_option_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1358,6 +1824,10 @@ namespace ScoponeScientifico {
       if (NextPlayerID != global::ScoponeScientifico.Actor.User) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) NextPlayerID);
       }
+      if (ConflictResolutionNeeded != false) {
+        size += 1 + 1;
+      }
+      size += option_.CalculateSize(_repeated_option_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -1389,6 +1859,10 @@ namespace ScoponeScientifico {
       if (other.NextPlayerID != global::ScoponeScientifico.Actor.User) {
         NextPlayerID = other.NextPlayerID;
       }
+      if (other.ConflictResolutionNeeded != false) {
+        ConflictResolutionNeeded = other.ConflictResolutionNeeded;
+      }
+      option_.Add(other.option_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -1433,6 +1907,14 @@ namespace ScoponeScientifico {
           }
           case 48: {
             NextPlayerID = (global::ScoponeScientifico.Actor) input.ReadEnum();
+            break;
+          }
+          case 56: {
+            ConflictResolutionNeeded = input.ReadBool();
+            break;
+          }
+          case 66: {
+            option_.AddEntriesFrom(input, _repeated_option_codec);
             break;
           }
         }
@@ -1481,6 +1963,14 @@ namespace ScoponeScientifico {
             NextPlayerID = (global::ScoponeScientifico.Actor) input.ReadEnum();
             break;
           }
+          case 56: {
+            ConflictResolutionNeeded = input.ReadBool();
+            break;
+          }
+          case 66: {
+            option_.AddEntriesFrom(ref input, _repeated_option_codec);
+            break;
+          }
         }
       }
     }
@@ -1503,7 +1993,7 @@ namespace ScoponeScientifico {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::ScoponeScientifico.MessaggiPartitaReflection.Descriptor.MessageTypes[5]; }
+      get { return global::ScoponeScientifico.MessaggiPartitaReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
