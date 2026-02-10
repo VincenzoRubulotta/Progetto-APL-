@@ -22,6 +22,7 @@ func (s *server) StartGame(ctx context.Context, req *pb.GameSettings) (*pb.Initi
 		deck:          make([]*pb.Card, 0),
 		hands:         make(map[pb.Actor][]*pb.Card),
 		scoreDeck:     make(map[int][]*pb.Card),
+		mappaScope:    make(map[int]int32),
 		victoryPoints: req.MaxPoints,
 		hasStarted:    false,
 	}
@@ -42,7 +43,7 @@ func (s *server) StartGame(ctx context.Context, req *pb.GameSettings) (*pb.Initi
 
 	dealerID := rand.Int31n(4)
 
-	for i := 1; i <= 4; i++ {
+	for i := 0; i < 4; i++ {
 		for k := 1; k <= 10; k++ {
 			card := &pb.Card{Suit: pb.Suit(i), Rank: pb.Rank(k)}
 			newGame.deck = append(newGame.deck, card)
@@ -61,9 +62,13 @@ func (s *server) StartGame(ctx context.Context, req *pb.GameSettings) (*pb.Initi
 		n = n + 10
 	}
 
+	for i := 0; i < 2; i++ {
+		newGame.scorePoints[i] = 0
+	}
+
 	newGame.state = &pb.TurnUpdate{
 		Actor:         pb.Actor(dealerID),
-		NextPlayer_ID: pb.Actor(dealerID + 1),
+		NextPlayer_ID: pb.Actor((dealerID + 1) % 4),
 		IsMatchOver:   false,
 	}
 
@@ -91,18 +96,20 @@ func (s *server) PlayCard(ctx context.Context, req *pb.PlayRequest) (*pb.TurnUpd
 	game.mu.Lock()
 
 	if game.state.NextPlayer_ID != pb.Actor_USER {
+		game.mu.Unlock()
 		return nil, status.Error(codes.FailedPrecondition, "Non è il turno dell'utente")
 	}
 
 	update := game.tableManager(req, pb.Actor_USER)
 
 	if update.ConflictResolutionNeeded {
+		game.mu.Unlock()
 		return update, nil
 	}
 
 	game.state = update
 
-	defer game.mu.Unlock()
+	game.mu.Unlock()
 
 	go game.broadcastUpdate(update)
 
@@ -188,6 +195,7 @@ func (s *server) CalcolaPunteggio(ctx context.Context, req *pb.ObserveRequest) (
 
 		game.deck = game.history
 		game.history = nil
+		game.tableTop = nil
 
 		rand.Shuffle(len(game.deck), func(i, j int) {
 			game.deck[i], game.deck[j] = game.deck[j], game.deck[i]
@@ -202,6 +210,19 @@ func (s *server) CalcolaPunteggio(ctx context.Context, req *pb.ObserveRequest) (
 		}
 
 		scoreUpdate.UserHand = game.hands[pb.Actor_USER]
+
+		newState := &pb.TurnUpdate{
+			Actor:         pb.Actor(game.dealer_ID),
+			NextPlayer_ID: scoreUpdate.NextPlayer_ID,
+			IsMatchOver:   false,
+			PlayedCard:    nil,
+			CartePrese:    nil,
+			Scopa:         false,
+		}
+
+		game.state = newState
+
+		go game.broadcastUpdate(newState)
 	}
 
 	return scoreUpdate, nil

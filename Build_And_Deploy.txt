@@ -24,3 +24,20 @@ protoc --proto_path=. --csharp_out=./out_csharp --csharp_opt=file_extension=.g.c
 
 export PATH="$PATH:$(go env GOPATH)/bin"
 protoc --proto_path=. --go_out=./out_go --go_opt=paths=source_relative --go-grpc_out=./out_go --go-grpc_opt=paths=source_relative messaggi_partita.proto
+
+
+
+
+
+
+
+
+comandi avvio del progetto c#
+
+mkdir ScoponeClient
+cd ScoponeClient
+
+dotnet new console
+
+dotnet add package Google.Protobuf
+dotnet add package Grpc.Net.Client

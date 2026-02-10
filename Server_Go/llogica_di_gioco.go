@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	pb "scopone_server/Proto_Files"
 	"sync"
 )
@@ -204,7 +205,10 @@ func calcolaGiocata(hand []*pb.Card, tableTop []*pb.Card, history []*pb.Card) *p
 					}
 				}
 			}
-			return possibileGiocata[0]
+
+			if len(possibileGiocata) > 0 {
+				return possibileGiocata[0]
+			}
 		}
 
 		// se non posso fare scopa (valuto le carte in mano)
@@ -250,7 +254,7 @@ func calcolaGiocata(hand []*pb.Card, tableTop []*pb.Card, history []*pb.Card) *p
 	}
 
 	var cartaScelta *pb.Card
-	var punteggioMax int = 0
+	var punteggioMax int = -9999999
 
 	for card, punteggio := range mappaPunteggi {
 		if punteggio > punteggioMax {
@@ -332,10 +336,7 @@ func (g *GameSession) broadcastUpdate(update *pb.TurnUpdate) {
 	g.state = update
 
 	for _, ch := range g.listeners {
-		select {
-		case ch <- update:
-		default:
-		}
+		ch <- update
 	}
 }
 
@@ -365,6 +366,11 @@ func trovaCombinazioni(cards []*pb.Card, target int32) [][]*pb.Card {
 func (g *GameSession) tableManager(req *pb.PlayRequest, player pb.Actor) *pb.TurnUpdate {
 
 	cartaGiocata := req.PlayedCard
+
+	if cartaGiocata == nil {
+		fmt.Println("ERRORE: PlayedCard è nil!")
+		return &pb.TurnUpdate{ConflictResolutionNeeded: false}
+	}
 
 	for i, card := range g.hands[player] {
 		if isSameCard(card, cartaGiocata) {
@@ -450,9 +456,9 @@ func (g *GameSession) tableManager(req *pb.PlayRequest, player pb.Actor) *pb.Tur
 					Option:                   convertToProtoOption(combinazioniTotali),
 				}
 			}
+			update.CartePrese = req.TargetCard
 		} else {
-
-			punteggiomax := 0
+			punteggiomax := -9999
 			for _, combinazione := range combinazioniTotali {
 				punteggioAttuale := calcolaPunteggioCombinazione(combinazione)
 				if punteggioAttuale > punteggiomax {
