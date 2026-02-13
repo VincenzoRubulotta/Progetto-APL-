@@ -1,9 +1,3 @@
-/Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL/ScoponeClient/obj/Debug/net9.0/ScoponeClient.csproj.AssemblyReference.cache
-/Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL/ScoponeClient/obj/Debug/net9.0/ScoponeClient.GeneratedMSBuildEditorConfig.editorconfig
-/Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL/ScoponeClient/obj/Debug/net9.0/ScoponeClient.AssemblyInfoInputs.cache
-/Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL/ScoponeClient/obj/Debug/net9.0/ScoponeClient.AssemblyInfo.cs
-/Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL/ScoponeClient/obj/Debug/net9.0/ScoponeClient.csproj.CoreCompileInputs.cache
-/Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL/ScoponeClient/obj/Debug/net9.0/ScoponeClient.sourcelink.json
 /Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL/ScoponeClient/bin/Debug/net9.0/ScoponeClient
 /Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL/ScoponeClient/bin/Debug/net9.0/ScoponeClient.deps.json
 /Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL/ScoponeClient/bin/Debug/net9.0/ScoponeClient.runtimeconfig.json
@@ -15,6 +9,12 @@
 /Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL/ScoponeClient/bin/Debug/net9.0/Grpc.Net.Common.dll
 /Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL/ScoponeClient/bin/Debug/net9.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
 /Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL/ScoponeClient/bin/Debug/net9.0/Microsoft.Extensions.Logging.Abstractions.dll
+/Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL/ScoponeClient/obj/Debug/net9.0/ScoponeClient.csproj.AssemblyReference.cache
+/Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL/ScoponeClient/obj/Debug/net9.0/ScoponeClient.GeneratedMSBuildEditorConfig.editorconfig
+/Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL/ScoponeClient/obj/Debug/net9.0/ScoponeClient.AssemblyInfoInputs.cache
+/Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL/ScoponeClient/obj/Debug/net9.0/ScoponeClient.AssemblyInfo.cs
+/Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL/ScoponeClient/obj/Debug/net9.0/ScoponeClient.csproj.CoreCompileInputs.cache
+/Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL/ScoponeClient/obj/Debug/net9.0/ScoponeClient.sourcelink.json
 /Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL/ScoponeClient/obj/Debug/net9.0/ScoponeC.0D7DBAEB.Up2Date
 /Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL/ScoponeClient/obj/Debug/net9.0/ScoponeClient.dll
 /Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL/ScoponeClient/obj/Debug/net9.0/refint/ScoponeClient.dll

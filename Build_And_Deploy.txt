@@ -41,3 +41,16 @@ dotnet new console
 
 dotnet add package Google.Protobuf
 dotnet add package Grpc.Net.Client
+
+
+
+avalonia set up 
+
+dotnet new install Avalonia.Templates
+dotnet new avalonia.app -n ScoponeGrafico              (cambiare la versione di dotnet da 10 a 9)
+
+
+dotnet add package Grpc.Net.Client
+dotnet add package Google.Protobuf
+dotnet add package Grpc.Tools
+<Protobuf Include="Protos\messaggi_partita.proto" GrpcServices="Client" />

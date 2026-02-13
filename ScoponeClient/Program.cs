@@ -1,131 +1,212 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection.Metadata;
-using System.Threading;
-using System.Threading.Tasks;
+﻿
 using Grpc.Net.Client;
 using ScoponeScientifico;
+using gameNamespace;
+using TUINapespace;
+using System.Text;
 
 class Program
 {
-    static int _gameID;
-    static List<card> _myHand = new List<card>();
+    static GameState _gameState = new GameState();
     static go_backend.go_backendClient _client = null!;
-    static bool _isMyTurn = false;
-    static bool _isMatchOver = false;
+    static int _GameID;
 
-    static readonly object _consoleLock = new object();
+    static string _myId = "";
+    static bool _gameRunning = true;
+    
     static async Task Main(string[] args)
     {
-       Log("--- SCOPONE SCIENTIFICO C# ---");
+        Console.OutputEncoding = Encoding.UTF8;
+        Console.Title = "Scopone Scientifico - Client TUI";
 
         var channel = GrpcChannel.ForAddress("http://localhost:50051");
         _client = new go_backend.go_backendClient(channel);
 
+        Console.Clear();
+        Console.WriteLine("--- BENVENUTO ALLO SCOPONE SCIENTIFICO ---"); 
+
+        Console.Write("Inserisci il tuo Nome Utente: ");  
+        string userName = Console.ReadLine() ?? "Hero";
+
+        int maxPoints = 0;
+        while (maxPoints != 11 && maxPoints != 21)
+        {
+            Console.Write("A quanto si gioca? (11 o 21): ");
+            string input = Console.ReadLine() ?? "";
+            int.TryParse(input, out maxPoints);
+        }
+
+        Console.WriteLine("Connessione in corso...");
+
         try
         {
-            Log("Avvio partita...");
-            var startReq = new game_settings { UserName = "Hero", MaxPoints = 11 };
+            var startReq = new game_settings { UserName = userName, MaxPoints = maxPoints };
             var initData = await _client.start_gameAsync(startReq);
 
-            _gameID = initData.GameID;
-            _myHand.AddRange(initData.UserHand);
+            _GameID = initData.GameID;
+            _myId = userName;
 
-            Log($"Partita ID: {_gameID} iniziata.");
-            Log($"Mazziere: {initData.DealerID}");
+            _gameState.ResetNewRound(initData.UserHand);
+
+            Console.CursorVisible = false;
+            TUIRender.Draw(_gameState);
 
             _ = Task.Run(() => AscoltaServer());
 
-            while (true)
-            {
-                if (_isMatchOver)
-                {
-                    bool continua = await GestisciFineSmazzata();
-                    if (!continua) break;
-                }
-                else if (_isMyTurn && _myHand.Count > 0)
-                {
-                    await FaiLaTuaMossa();
-                }
+            await GestisciInputUtente();
 
-                await Task.Delay(100);
-            }
+
         }
         catch (Exception ex)
         {
-            Log($"ERRORE FATALE: {ex.Message}");
+            Console.Clear();
+            Console.WriteLine($"ERRORE FATALE DI CONNESSIONE: {ex.Message}");
+            Console.WriteLine("Premi un tasto per uscire...");
+            Console.ReadKey();
         }
     }
 
-
-    static void Log(string message)
+    static async Task GestisciInputUtente()
+    {
+        while (_gameRunning)
         {
-            lock (_consoleLock)
+            var keyInfo = Console.ReadKey(intercept: true);
+
+            if (keyInfo.Key == ConsoleKey.RightArrow)
             {
-                Console.WriteLine(message);
+                _gameState.MoveSelectionRight();
+                TUIRender.Draw(_gameState);
+            }
+            else if (keyInfo.Key == ConsoleKey.LeftArrow)
+            {
+                _gameState.MoveSelectionLeft();
+                TUIRender.Draw(_gameState);
+            }
+            else if (keyInfo.Key == ConsoleKey.Enter)
+            {
+                if (_gameState.MyTurn)
+                {
+                    var cartaSelezionata = _gameState.GetSelectedCard();
+                    if (cartaSelezionata != null)
+                    {
+                        await EseguiGiocata(cartaSelezionata);
+                    }
+                }
+            }
+            else if (keyInfo.Key == ConsoleKey.Escape)
+            {
+                _gameRunning = false;
+            }
+        }    
+    }
+
+    static async Task EseguiGiocata(card CartaScelta)
+    {
+        try
+        {
+            _gameState.setStatusMessage($"Invio {CartaScelta.Rank} {CartaScelta.Suit}...");
+            TUIRender.Draw(_gameState);
+
+            var req = new PlayRequest
+            {
+                GameID = _GameID,
+                PlayedCard = CartaScelta
+            };
+
+            var response = await _client.play_cardAsync(req);
+
+            if (response.ConflictResolutionNeeded)
+            {
+                StringBuilder sb = new StringBuilder("AMBIGUITÀ! Scegli numero:");
+                for (int i = 0; i < response.Option.Count; i++)
+                {
+                    sb.Append($"[{i}]");
+                    foreach (var c in response.Option[i].Cards) sb.Append($"{c.Rank.ToString().Substring(0, 1)}{c.Suit.ToString().Substring(0, 1)}");
+                    sb.Append("|");
+                }
+
+                _gameState.setStatusMessage(sb.ToString());
+                TUIRender.Draw(_gameState);
+
+
+                int opzIdx = -1;
+                while (true)
+                {
+                    var k = Console.ReadKey(intercept: true);
+
+                    if (char.IsDigit(k.KeyChar))
+                    {
+                        int val = int.Parse(k.KeyChar.ToString());
+                        if (val >= 0 && val < response.Option.Count)
+                        {
+                            opzIdx = val;
+                            break;
+                        }
+                    }
+                }
+
+                var reqConScelta = new PlayRequest
+                {
+                    GameID = _GameID,
+                    PlayedCard = CartaScelta,
+
+                };
+
+                reqConScelta.TargetCard.AddRange(response.Option[opzIdx].Cards);
+                _gameState.setStatusMessage($"Hai scelto opzione {opzIdx}. Invio...");
+                TUIRender.Draw(_gameState);
+
+                await _client.play_cardAsync(reqConScelta);
             }
         }
-
-        static void LogInline(string message)
+        catch(Exception ex)
         {
-            lock (_consoleLock)
-            {
-                Console.Write(message);
-            }
+            _gameState.setStatusMessage($"ERRORE GIOCATA: {ex.Message}");
+            TUIRender.Draw(_gameState);
+            await Task.Delay(2000);
         }
 
+    }
     static async Task<bool> GestisciFineSmazzata()
     {
         try
         {
-            var request = new observe_request { GameID = _gameID };
+            var request = new observe_request { GameID = _GameID };
             var scoreUpdate = await _client.calcola_punteggioAsync(request);
 
-            lock (_consoleLock)
-            {
-                Console.WriteLine("=================================");
-                Console.WriteLine("       RISULTATI PARZIALI        ");
-                Console.WriteLine($"NOI (User+Partner): {scoreUpdate.UserSqudScore}");
-                Console.WriteLine($"LORO (CpuLeft+Right): {scoreUpdate.CpuSquadScore}");
-                Console.WriteLine("=================================");
-            }
-            
+
+            _gameState.AggiornaPunteggi((int)scoreUpdate.UserSqudScore, (int)scoreUpdate.CpuSquadScore);
+
 
             if (scoreUpdate.IsGameOver)
             {
-               Log("\n*** PARTITA CONCLUSA ***");
+                Console.Clear();
+                Console.WriteLine("\n\n\n");
+                Console.WriteLine("=================================");
+                Console.WriteLine("      PARTITA TERMINATA          ");
+                Console.WriteLine("=================================");
+                Console.WriteLine($"NOI:  {scoreUpdate.UserSqudScore}");
+                Console.WriteLine($"LORO: {scoreUpdate.CpuSquadScore}");
 
                 if (scoreUpdate.UserSqudScore > scoreUpdate.CpuSquadScore)
-                   Log("HAI VINTO! COMPLIMENTI!");
+                    Console.WriteLine("\n     HAI VINTO!      ");
                 else
-                    Log("HAI PERSO. RITENTA!");
-
+                    Console.WriteLine("\n     HAI PERSO...      ");
+                
+                Console.WriteLine("\nPremi ESC per uscire.");
                 return false;
             }
 
-            Log("\nLa partita continua! Distribuzione nuove carte...");
+            _gameState.ResetNewRound(scoreUpdate.UserHand);
 
-            _myHand.Clear();
-            _myHand.AddRange(scoreUpdate.UserHand);
-
-            Log($"Ho ricevuto {_myHand.Count} nuove carte.");
-
-            _isMatchOver = false;
-
-            if (scoreUpdate.NextPlayerID == Actor.User)
-            {
-                Log("!!! TOCCA A TE (Primo di mano) !!!");
-            }
-            else
-            {
-                Log($"Inizia il giocatore: {scoreUpdate.NextPlayerID}");
-            }
+            TUIRender.Draw(_gameState);
 
             return true;
         }
         catch (Exception ex)
         {
-            Log($"Errore nel calcolo punteggi: {ex.Message}");
+            _gameState.setStatusMessage($"Errore Punteggi: {ex.Message}");
+            TUIRender.Draw(_gameState);
             return false;
         }
     }
@@ -133,156 +214,56 @@ class Program
     {
         try
         {
-            var request = new observe_request { GameID = _gameID };
+            var request = new observe_request { GameID = _GameID};
             using var stream = _client.observe_turn(request);
-
-            Log("In ascolto degli eventi di gioco...");
 
             while (await stream.ResponseStream.MoveNext(CancellationToken.None))
             {
                 var update = stream.ResponseStream.Current;
 
-                lock (_consoleLock)
-                {
-                    if (update.PlayedCard != null)
-                    {
-                        Console.WriteLine($"\n[EVENTO] Ha giocato: {update.Actor} -> {update.PlayedCard.Rank} di {update.PlayedCard.Suit}");
-                    }
-                    else
-                    {
-                        Console.Write(" (Nessuna carta giocata)");
-                    }
 
-                    if (update.CartePrese.Count > 0)
+
+                if (update.IsMatchOver)
+                {
+                    _gameState.setStatusMessage("Fine smazzata! Calcolo Punteggi...");
+                    TUIRender.Draw(_gameState);
+                    bool continua = await GestisciFineSmazzata();
+                    
+                    if (!continua) 
                     {
-                        Console.WriteLine($"   >>> PRESA! {update.CartePrese.Count} carte catturate.");
+                        _gameRunning = false;
+                        break;
                     }
+                    continue;
+                }
+
+                if (update.PlayedCard != null)
+                {
+                    _gameState.SpostaCartaSulTavolo(update.PlayedCard, update.Actor);
+                    TUIRender.Draw(_gameState);
+
+                    await Task.Delay(3000);
+
+                    bool toccaAMeDopo = (update.NextPlayerID == Actor.User);
+
+                    var listaPrese = update.CartePrese.ToList();
+
+                    _gameState.FinalizzaPresa(update.PlayedCard, listaPrese, toccaAMeDopo);
 
                     if (update.Scopa)
                     {
-                        Console.WriteLine("   *** SCOPA! ***");
+                        _gameState.setStatusMessage("!!! SCOPA !!! " + _gameState.StatusMessage);
                     }
+                    
+                    TUIRender.Draw(_gameState);
                 }
-
-                if (update.IsMatchOver)
-                    {
-                        _isMatchOver = update.IsMatchOver;
-                    }
-
-                Log($"Prossimo giocatore: {update.NextPlayerID}");
-
-                if (update.NextPlayerID == Actor.User)
-                {
-                    Log("!!! TOCCA A TE !!!");
-                    _isMyTurn = true;
-                }
-                else
-                {
-                    _isMyTurn = false;
-                }
-
             }
         }
         catch (Exception ex)
         {
-            Log($"Errore Stream: {ex.Message}");
+            _gameState.setStatusMessage($"ERRORE STREAM: {ex.Message}");
+            TUIRender.Draw(_gameState);
         }
     }
 
-    static async Task FaiLaTuaMossa()
-    {
-        lock (_consoleLock)
-        {
-            Console.WriteLine("\n-------------------------");
-            Console.WriteLine("       IL TUO TURNO      ");
-            Console.WriteLine("-------------------------");
-
-            for (int i = 0; i < _myHand.Count; i++)
-            {
-                Console.WriteLine($"[{i}] {_myHand[i].Rank} di {_myHand[i].Suit}");
-            }
-        }
-
-        int index = -1; 
-        
-        while (Console.KeyAvailable) Console.ReadKey(true);
-
-        while (true)
-        {
-            LogInline($"Scegli l'indice della carta da giocare (0-{_myHand.Count - 1}): ");
-
-            string input = Console.ReadLine() ?? "";
-
-            if (string.IsNullOrWhiteSpace(input))
-            {
-                continue;
-            }
-
-            if (int.TryParse(input, out int parsedIndex) && parsedIndex >= 0 && parsedIndex < _myHand.Count)
-            {
-                index = parsedIndex;
-                break;
-            }
-            else
-            {
-                Log("Indice non valido. Riprova.");
-            }
-        }
-
-        var cartaScelta = _myHand[index];
-
-        Log($"Invio carta: {cartaScelta.Rank}...");
-        
-        _isMyTurn = false;
-
-        try
-        {
-            var req = new PlayRequest
-            {
-                GameID = _gameID,
-                PlayedCard = cartaScelta
-            };
-
-            var response = await _client.play_cardAsync(req);
-
-            if (response.ConflictResolutionNeeded)
-            {
-                lock (_consoleLock)
-                {
-                    Console.WriteLine("\n!!! AMBIGUITÀ - SCEGLI PRESA !!!");
-                    for (int i = 0; i < response.Option.Count; i++)
-                    {
-                        Console.Write($"[{i}]: ");
-                        foreach (var c in response.Option[i].Cards) Console.Write($"[{c.Rank}{c.Suit}] ");
-                        Console.WriteLine();
-                    }
-                }
-
-                int opzIdx = -1;
-                while (true)
-                {
-                    LogInline("Scegli Opzione: ");
-                    string scelta = Console.ReadLine() ?? "";
-                    if (int.TryParse(scelta, out int parsedOpz) && parsedOpz >= 0 && parsedOpz < response.Option.Count)
-                    {
-                        opzIdx = parsedOpz;
-                        break;
-                    }
-                }
-
-                var reqConScelta = new PlayRequest { GameID = _gameID, PlayedCard = cartaScelta };
-                reqConScelta.TargetCard.AddRange(response.Option[opzIdx].Cards);
-
-                Log("Invio scelta conflitto...");
-                await _client.play_cardAsync(reqConScelta);
-            }
-
-            _myHand.RemoveAt(index);
-            Log("Mossa completata. Aspetto gli altri...");
-        }
-        catch (Exception ex)
-        {
-            Log($"Errore Giocata: {ex.Message}");
-        }
-    }
 }
