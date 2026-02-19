@@ -40,19 +40,6 @@ var valPrimiera = map[pb.Rank]int32{
 	pb.Rank_RE:      10,
 }
 
-func isSameCard(c1, c2 *pb.Card) bool {
-	return c1.Suit == c2.Suit && c1.Rank == c2.Rank
-}
-
-func convertToProtoOption(combos [][]*pb.Card) []*pb.Cobination {
-	var option []*pb.Cobination
-	for _, c := range combos {
-		option = append(option, &pb.Cobination{Cards: c})
-	}
-
-	return option
-}
-
 func calcolaRisultati(game *GameSession) [2]int32 {
 
 	punteggioFinale := [2]int32{game.scorePoints[0], game.scorePoints[1]}
@@ -263,36 +250,6 @@ func calcolaGiocata(hand []*pb.Card, tableTop []*pb.Card, history []*pb.Card) *p
 		}
 	}
 	return cartaScelta
-}
-
-func calcolaPunteggioCombinazione(combinazione []*pb.Card) int {
-	Punteggio := 0
-
-	for _, card := range combinazione {
-		Punteggio += 10
-
-		if card.Suit == pb.Suit_DENARI {
-			Punteggio += 50
-		}
-
-		switch card.Rank {
-		case pb.Rank_SETTE:
-			if card.Suit == pb.Suit_DENARI {
-				Punteggio += 1500
-			} else {
-				Punteggio += 200
-			}
-		case pb.Rank_SEI:
-			Punteggio += 60
-
-		case pb.Rank_ASSO:
-			Punteggio += 20
-		default:
-			Punteggio += 0
-		}
-
-	}
-	return Punteggio
 }
 
 func (g *GameSession) controlloFineRound(update *pb.TurnUpdate, player pb.Actor) {

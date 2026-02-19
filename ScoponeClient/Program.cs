@@ -4,6 +4,8 @@ using ScoponeScientifico;
 using gameNamespace;
 using TUINapespace;
 using System.Text;
+using System.Diagnostics;
+using System.IO.Enumeration;
 
 class Program
 {
@@ -13,7 +15,7 @@ class Program
 
     static string _myId = "";
     static bool _gameRunning = true;
-    
+
     static async Task Main(string[] args)
     {
         Console.OutputEncoding = Encoding.UTF8;
@@ -23,9 +25,14 @@ class Program
         _client = new go_backend.go_backendClient(channel);
 
         Console.Clear();
-        Console.WriteLine("--- BENVENUTO ALLO SCOPONE SCIENTIFICO ---"); 
+        Console.WriteLine("--- BENVENUTO ALLO SCOPONE SCIENTIFICO ---");
+        Console.WriteLine("--- Legenda Comandi ---");
+        Console.WriteLine("--- Muoviti con le frecce direzionali per scorrere le carte in mano ---");
+        Console.WriteLine("--- Premi INVIO per giocare la carta durante il tuo turno ---");
+        Console.WriteLine("--- Premi S per guardare le statistiche ---");
+        Console.WriteLine("--- Premi ESC per uscire dal gioco ---");
 
-        Console.Write("Inserisci il tuo Nome Utente: ");  
+        Console.Write("\n\nInserisci il tuo Nome Utente: ");
         string userName = Console.ReadLine() ?? "Hero";
 
         int maxPoints = 0;
@@ -97,7 +104,11 @@ class Program
             {
                 _gameRunning = false;
             }
-        }    
+            else if (keyInfo.Key == ConsoleKey.S)
+            {
+                MostraStatistiche();
+            }
+        }
     }
 
     static async Task EseguiGiocata(card CartaScelta)
@@ -159,7 +170,7 @@ class Program
                 await _client.play_cardAsync(reqConScelta);
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             _gameState.setStatusMessage($"ERRORE GIOCATA: {ex.Message}");
             TUIRender.Draw(_gameState);
@@ -192,7 +203,7 @@ class Program
                     Console.WriteLine("\n     HAI VINTO!      ");
                 else
                     Console.WriteLine("\n     HAI PERSO...      ");
-                
+
                 Console.WriteLine("\nPremi ESC per uscire.");
                 return false;
             }
@@ -214,7 +225,7 @@ class Program
     {
         try
         {
-            var request = new observe_request { GameID = _GameID};
+            var request = new observe_request { GameID = _GameID };
             using var stream = _client.observe_turn(request);
 
             while (await stream.ResponseStream.MoveNext(CancellationToken.None))
@@ -244,7 +255,7 @@ class Program
                     _gameState.SpostaCartaSulTavolo(update.PlayedCard, update.Actor);
                     TUIRender.Draw(_gameState);
 
-                    await Task.Delay(3000);
+                    await Task.Delay(200);
 
                     var listaPrese = update.CartePrese.ToList();
 
@@ -272,4 +283,27 @@ class Program
         }
     }
 
+
+    static void MostraStatistiche()
+    {
+        string url = "http://localhost:5001/stats";
+
+        _gameState.setStatusMessage("Apertura statistiche nel browser");
+        TUIRender.Draw(_gameState);
+
+        try
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = url,
+                UseShellExecute = true
+            });
+        }
+        catch (Exception)
+        {
+            _gameState.setStatusMessage($"Impossibile aprire in automatico. Vai su {url}");
+            TUIRender.Draw(_gameState);
+        }
+    }
+    
 }

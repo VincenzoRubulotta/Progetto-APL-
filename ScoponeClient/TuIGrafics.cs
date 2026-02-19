@@ -142,7 +142,14 @@ namespace TUINapespace
             Console.Write($"│{rank,-2}     │");
 
             Console.SetCursorPosition(x, y + 2);
-            Console.Write($"│   {suit}   │");
+            if (card.Suit == Suit.Coppe || card.Suit == Suit.Denari)
+            {
+                Console.Write($"│   {suit}  │");
+            }
+            else
+            {
+                Console.Write($"│   {suit}   │");
+            }
 
             Console.SetCursorPosition(x, y + 3);
             Console.Write("│       │");

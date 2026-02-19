@@ -1,0 +1,22 @@
+
+services:
+  scopone-backend:
+    build: ./Server_Go     
+    container_name: go_server
+    ports:
+      - "50051:50051"          
+    volumes:
+      - stats_volume:/data      
+
+  scopone-analytics:
+    build: ./Analytics          
+    container_name: python_stats
+    ports:
+      - "5001:5001"              
+    depends_on:
+      - scopone-backend      
+    volumes:
+      - stats_volume:/data     
+
+volumes:
+  stats_volume:
