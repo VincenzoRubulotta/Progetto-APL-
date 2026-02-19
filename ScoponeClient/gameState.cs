@@ -1,4 +1,5 @@
 
+using System.Runtime.CompilerServices;
 using ScoponeScientifico;
 
 namespace gameNamespace
@@ -80,6 +81,22 @@ namespace gameNamespace
         }
 
 
+        public void AggiornaTurno(bool toccaAMe)
+        {
+            lock (_stateLock)
+            {
+                MyTurn = toccaAMe;
+                if (MyTurn)
+                {
+                    StatusMessage = "Tocca a te! Usa le frecce e previ INVIO";
+                }
+                else
+                {
+                    StatusMessage = "In attesa dell'avversario...";
+                }
+             }
+         }
+         
         public void AggiornaPunteggi(int myScore, int oppScore)
         {
             lock (_stateLock)

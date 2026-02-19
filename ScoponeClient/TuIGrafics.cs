@@ -127,7 +127,7 @@ namespace TUINapespace
                     break;
             }
 
-            ConsoleColor bgColor = isSelected ? ConsoleColor.White : ConsoleColor.Gray;
+            ConsoleColor bgColor = isSelected ? ConsoleColor.DarkYellow : ConsoleColor.White;
 
             Console.ForegroundColor = cardColor;
             Console.BackgroundColor = bgColor;

@@ -228,8 +228,8 @@ class Program
                     _gameState.setStatusMessage("Fine smazzata! Calcolo Punteggi...");
                     TUIRender.Draw(_gameState);
                     bool continua = await GestisciFineSmazzata();
-                    
-                    if (!continua) 
+
+                    if (!continua)
                     {
                         _gameRunning = false;
                         break;
@@ -237,14 +237,14 @@ class Program
                     continue;
                 }
 
+                bool toccaAMeDopo = (update.NextPlayerID == Actor.User);
+
                 if (update.PlayedCard != null)
                 {
                     _gameState.SpostaCartaSulTavolo(update.PlayedCard, update.Actor);
                     TUIRender.Draw(_gameState);
 
                     await Task.Delay(3000);
-
-                    bool toccaAMeDopo = (update.NextPlayerID == Actor.User);
 
                     var listaPrese = update.CartePrese.ToList();
 
@@ -254,9 +254,15 @@ class Program
                     {
                         _gameState.setStatusMessage("!!! SCOPA !!! " + _gameState.StatusMessage);
                     }
-                    
-                    TUIRender.Draw(_gameState);
+
+
                 }
+                else
+                {
+                    _gameState.AggiornaTurno(toccaAMeDopo);
+                }
+
+                TUIRender.Draw(_gameState);
             }
         }
         catch (Exception ex)
