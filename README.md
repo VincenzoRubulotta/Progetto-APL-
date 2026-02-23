@@ -1,30 +1,45 @@
-Prerequisiti di Sistema
+# Progetto: Scopone Scientifico - Architettura Multiplayer e Data Analytics
+
+Il presente repository contiene un'implementazione distribuita del tradizionale gioco di carte "Scopone Scientifico". Il sistema è stato progettato adottando un'architettura a microservizi, la quale integra un motore di gioco concorrente, un client con interfaccia testuale (TUI) e un sottosistema per l'analisi statistica dei dati di gioco in tempo reale.
+
+## Architettura del Sistema
+
+Il progetto è strutturato in tre moduli principali interconnessi:
+
+1. **Backend (Go e gRPC):** Costituisce il nucleo applicativo. Gestisce la logica di dominio, l'applicazione delle regole, la transizione dei turni e il calcolo dei punteggi. Sfrutta le funzionalità di concorrenza del linguaggio Go (Goroutine e Mutex) per gestire accessi multipli in sicurezza (thread-safety). Il servizio è containerizzato e orchestrato tramite Docker.
+2. **Modulo di Data Analytics (Python, Flask, Pandas):** Un server web preposto alla lettura asincrona dei dati di sessione e alla generazione dinamica di grafici statistici. Permette l'analisi dello storico delle vittorie, l'andamento dei singoli round e l'acquisizione dei punti di mazzo. Anch'esso viene eseguito all'interno di un container Docker dedicato.
+3. **Client (C# e .NET):** Rappresenta l'interfaccia utente testuale (TUI). Comunica bidirezionalmente con il server Go tramite protocollo gRPC ed elabora gli aggiornamenti di stato per il rendering a schermo. Viene eseguito nativamente sull'ambiente host dell'utente.
+
+---
+
+## Prerequisiti di Sistema
+
 Per la corretta compilazione ed esecuzione dell'applicativo, è richiesta la presenza dei seguenti strumenti sull'ambiente host:
 
-Docker e Docker Compose: Necessari per l'orchestrazione dei servizi backend e analytics.
+* **Docker e Docker Compose:** Necessari per l'orchestrazione dei servizi backend e analytics.
+* **.NET SDK 9.0:** Il progetto in questione è configurato nativamente con .NET SDK 9.0. 
+  * Qualora si disponga di una versione **precedente**, si consiglia caldamente l'aggiornamento.
+  * Qualora si disponga di una versione **successiva** (es. .NET 10), è necessario modificare la versione di destinazione (`TargetFramework`) all'interno del file `ScoponeClient.csproj` situato nella directory `ScoponeClient`.
 
-.NET SDK 9.0: Il progetto in questione è configurato nativamente con .NET SDK 9.0.
+---
 
-Qualora si disponga di una versione precedente, si consiglia caldamente l'aggiornamento.
+## Istruzioni per l'Avvio
 
-Qualora si disponga di una versione successiva (es. .NET 10), è necessario modificare la versione di destinazione (TargetFramework) all'interno del file ScoponeClient.csproj situato nella directory ScoponeClient.
-
-Istruzioni per l'Avvio
 La procedura di avvio del progetto è suddivisa in due fasi: l'inizializzazione dell'infrastruttura server e l'esecuzione del client.
 
-Fase 1: Avvio dell'Infrastruttura Server (Docker)
 
-Aprire un terminale posizionandosi nella directory principale (root) del progetto ed eseguire il seguente comando per avviare i container in background:
+Aprire un terminale posizionandosi nella directory principale (root) del progetto ed eseguire il seguente comando per avviare i container in background:  
 
-Bash
+```bash
 docker-compose up --build -d
-Fase 2: Avvio del Client di Gioco (C#)
 
 Avendo avviato il server in background (grazie al flag -d), è possibile rimanere nella sessione di terminale attuale (oppure aprirne una nuova). Posizionarsi all'interno della directory del client ed avviare l'eseguibile tramite i seguenti comandi:
 
-Bash
+```bash
 cd ScoponeClient
 dotnet run
+
+
 Nota Operativa: È possibile istanziare molteplici processi client eseguendo il comando dotnet run in finestre di terminale separate, al fine di simulare o gestire partite indipendenti.
 
 Funzionalità e Comandi di Gioco
