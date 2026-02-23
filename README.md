@@ -1,29 +1,31 @@
 Prerequisiti di Sistema
 Per la corretta compilazione ed esecuzione dell'applicativo, è richiesta la presenza dei seguenti strumenti sull'ambiente host:
 
-Docker e Docker Compose (necessari per l'orchestrazione dei servizi backend e analytics).
+Docker e Docker Compose: Necessari per l'orchestrazione dei servizi backend e analytics.
 
-Il progetto in questione è configurto con .NET SDK 9.0 nel caso si dispone
-di una versione più vechia è consigliato aggiornarla con la 9.0, se invece
-la versione a dispozione è superiore alla 9.0 si consiglia di cambiare la versione corrente all'interno del file "ScoponeClient.csproj" che si trova nella directory "ScoponeClient"
+.NET SDK 9.0: Il progetto in questione è configurato nativamente con .NET SDK 9.0.
 
-struzioni per l'Avvio
+Qualora si disponga di una versione precedente, si consiglia caldamente l'aggiornamento.
+
+Qualora si disponga di una versione successiva (es. .NET 10), è necessario modificare la versione di destinazione (TargetFramework) all'interno del file ScoponeClient.csproj situato nella directory ScoponeClient.
+
+Istruzioni per l'Avvio
 La procedura di avvio del progetto è suddivisa in due fasi: l'inizializzazione dell'infrastruttura server e l'esecuzione del client.
 
 Fase 1: Avvio dell'Infrastruttura Server (Docker)
 
-Aprire un terminale posizionandosi nella directory principale (root) del progetto ed eseguire il seguente comando per avviare i container in background:  
+Aprire un terminale posizionandosi nella directory principale (root) del progetto ed eseguire il seguente comando per avviare i container in background:
 
+Bash
 docker-compose up --build -d
-
 Fase 2: Avvio del Client di Gioco (C#)
 
-Aprire una nuova sessione del terminale(o rimanere nella sessione attuale se si è avviato il server in backgorund), posizionarsi all'interno della directory del client ed avviare l'eseguibile:
+Avendo avviato il server in background (grazie al flag -d), è possibile rimanere nella sessione di terminale attuale (oppure aprirne una nuova). Posizionarsi all'interno della directory del client ed avviare l'eseguibile tramite i seguenti comandi:
 
+Bash
 cd ScoponeClient
 dotnet run
-
-Nota: È possibile istanziare molteplici processi client eseguendo il comando dotnet run in finestre di terminale separate, al fine di simulare o gestire partite indipendenti.
+Nota Operativa: È possibile istanziare molteplici processi client eseguendo il comando dotnet run in finestre di terminale separate, al fine di simulare o gestire partite indipendenti.
 
 Funzionalità e Comandi di Gioco
 Durante l'esecuzione, l'interazione dell'utente avviene tramite input da tastiera, seguendo le indicazioni fornite dall'interfaccia. Oltre ai comandi standard di gioco, sono state implementate due funzionalità di interrogazione statistica:
@@ -33,7 +35,9 @@ Tasto 'P' (Statistiche della Partita Corrente): Richiama l'apertura del browser 
 Tasto 'S' (Statistiche Globali): Genera e visualizza nel browser lo storico aggregato di tutte le partite registrate dal server, fornendo metriche quali le percentuali di vittoria, le medie dei punteggi e i relativi scarti.
 
 Visualizzazione delle Statistiche di Fine Partita
-Al termine di ogni match, il sistema espone automaticamente le statistiche finali relative alla sessione appena conclusa, rendendole accessibili tramite l'interfaccia web dedicata. Si precisa che, a causa delle tempistiche di scrittura asincrona dei dati sul file system condiviso, i grafici potrebbero non essere immediatamente renderizzati all'apertura del browser. Qualora la pagina dovesse risultare incompleta o priva di dati, sarà sufficiente effettuare un aggiornamento della pagina web (refresh) per forzare il corretto caricamento delle informazioni aggiornate.
+Al termine di ogni match, il sistema espone automaticamente le statistiche finali relative alla sessione appena conclusa, rendendole accessibili tramite l'interfaccia web dedicata.
+
+Si precisa che, a causa delle tempistiche di scrittura asincrona dei dati sul file system condiviso, i grafici potrebbero non essere immediatamente renderizzati all'apertura del browser. Qualora la pagina dovesse risultare incompleta o priva di dati, sarà sufficiente effettuare un aggiornamento della pagina web (refresh) per forzare il corretto caricamento delle informazioni aggiornate.
 
 Note Tecniche e Ambiente di Collaudo (TUI)
 Essendo l'interfaccia utente basata su riga di comando, la corretta formattazione della griglia grafica (allineamento delle carte e rendering dei semi) è strettamente dipendente dalla configurazione del terminale host.
