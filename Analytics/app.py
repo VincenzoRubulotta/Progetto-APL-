@@ -139,9 +139,9 @@ def genera_dashboard():
         axs[0,1].legend()
     else: 
         col_names = ", ".join(list(df.columns))
-        axs[1,1].text(0.5, 0.5, f"Colonne non trovate.\nHo trovato queste:\n{col_names}", 
+        axs[0,1].text(0.5, 0.5, f"Colonne non trovate.\nHo trovato queste:\n{col_names}", 
                     horizontalalignment='center', color='red', wrap=True)
-    axs[1,1].set_title('StoricoPunteggi')
+    axs[0,1].set_title('StoricoPunteggi')
 
     colori_barre = ['#4CAF50' if val > 0 else '#F44336' for val in df['Scarto']]
     axs[1,0].bar(df.index +1, df['Scarto'], color = colori_barre, alpha = 0.8)

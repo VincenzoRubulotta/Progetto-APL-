@@ -173,13 +173,13 @@ func (s *server) CalcolaPunteggio(ctx context.Context, req *pb.ObserveRequest) (
 		game.scorePoints[i] = punteggio[i]
 	}
 
-	if punteggio[0] > game.victoryPoints && punteggio[0] > punteggio[1] {
+	if punteggio[0] >= game.victoryPoints && punteggio[0] > punteggio[1] {
 		scoreUpdate.IsGameOver = true
 		game.isGameOver = true
 		scoreUpdate.UserHand = nil
 
 		salvaStatistichePartite(req.Game_ID, punteggio[0], punteggio[1], game.victoryPoints)
-	} else if punteggio[1] > game.victoryPoints && punteggio[1] > punteggio[0] {
+	} else if punteggio[1] >= game.victoryPoints && punteggio[1] > punteggio[0] {
 		scoreUpdate.IsGameOver = true
 		game.isGameOver = true
 		scoreUpdate.UserHand = nil

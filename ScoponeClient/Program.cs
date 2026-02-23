@@ -196,6 +196,10 @@ class Program
 
             if (scoreUpdate.IsGameOver)
             {
+
+                MostraStatistiche();
+                MostraStatistichePartitaCorrente();
+
                 Console.Clear();
                 Console.WriteLine("\n\n\n");
                 Console.WriteLine("=================================");

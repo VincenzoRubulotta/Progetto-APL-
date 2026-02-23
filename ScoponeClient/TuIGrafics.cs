@@ -7,8 +7,8 @@ namespace TUINapespace
 {
     public static class TUIRender
     {
-        private const int TABLE_Y = 10;
-        private const int HAND_Y = 20;
+        private const int TABLE_Y = 15;
+        private const int HAND_Y = 30;
         private const int CARD_WIDTH = 9;
         private const int CARD_HEIGHT = 6;
         private const int CARD_SPACING = 2;
@@ -49,6 +49,8 @@ namespace TUINapespace
             Console.SetCursorPosition(2, TABLE_Y - 2);
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write("TAVOLO");
+            Console.SetCursorPosition(0, TABLE_Y + 10);
+            Console.Write(new string('=', Console.WindowWidth));
 
             if (cards.Count == 0)
             {
@@ -65,6 +67,7 @@ namespace TUINapespace
                 int x = startX + (i * (CARD_WIDTH + CARD_SPACING));
                 DrawSingleCard(x, TABLE_Y, cards[i], false);
             }
+
         }
 
         private static void DrawHand(List<card> cards, int SelectedIndex, bool isMyTurn)

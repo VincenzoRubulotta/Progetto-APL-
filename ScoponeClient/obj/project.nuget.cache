@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "WaqAtth7Tyc=",
+  "dgSpecHash": "ldvvmtEbggY=",
   "success": true,
   "projectFilePath": "/Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL/ScoponeClient/ScoponeClient.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "/Users/vincenzorubulotta/.nuget/packages/grpc.core.api/2.76.0/grpc.core.api.2.76.0.nupkg.sha512",
     "/Users/vincenzorubulotta/.nuget/packages/grpc.net.client/2.76.0/grpc.net.client.2.76.0.nupkg.sha512",
     "/Users/vincenzorubulotta/.nuget/packages/grpc.net.common/2.76.0/grpc.net.common.2.76.0.nupkg.sha512",
+    "/Users/vincenzorubulotta/.nuget/packages/grpc.tools/2.78.0/grpc.tools.2.78.0.nupkg.sha512",
     "/Users/vincenzorubulotta/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.0/microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
     "/Users/vincenzorubulotta/.nuget/packages/microsoft.extensions.logging.abstractions/8.0.0/microsoft.extensions.logging.abstractions.8.0.0.nupkg.sha512"
   ],
