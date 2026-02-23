@@ -103,3 +103,60 @@ func salvaStatistichePartite(gameID int32, userScore int32, cpuScore int32, limi
 		fmt.Println("Statistiche partitr salvate con successo")
 	}
 }
+
+func SalvStatisticheRound(gameID int, roundNum int, carteUser int, carteCPU int, scoperUser int, scoperCPU int, primieraUser bool, primieraCPU bool, settebelloCPU bool, settebelloUser bool, denariUser bool, denariCpu bool) {
+	filename := "/data/rounds_history.csv"
+	if _, err := os.Stat("/data"); os.IsNotExist(err) {
+		filename = "round_history.csv"
+	}
+
+	fileExists := false
+	if _, err := os.Stat(filename); err == nil {
+		fileExists = true
+	}
+
+	file, err := os.OpenFile(filename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		fmt.Printf("Errore apertura CSV round: %v\n", err)
+		return
+	}
+	defer file.Close()
+
+	writer := csv.NewWriter(file)
+	defer writer.Flush()
+
+	if !fileExists {
+		header := []string{
+			"GameID", "RoundNum",
+			"CarteUser", "CarteCPU",
+			"ScopeUser", "ScopeCPU",
+			"PrimieraUser", "PrimieraCPU",
+			"SettebelloUser", "SettebelloCPU",
+			"DenariUser", "DenariCPU",
+		}
+		writer.Write(header)
+	}
+
+	record := []string{
+		strconv.Itoa(gameID),
+		strconv.Itoa(roundNum),
+		strconv.Itoa(carteUser),
+		strconv.Itoa(carteCPU),
+		strconv.Itoa(scoperUser),
+		strconv.Itoa(scoperCPU),
+		strconv.FormatBool(primieraUser),
+		strconv.FormatBool(primieraCPU),
+		strconv.FormatBool(settebelloUser),
+		strconv.FormatBool(settebelloCPU),
+		strconv.FormatBool(denariUser),
+		strconv.FormatBool(denariCpu),
+	}
+
+	err = writer.Write(record)
+
+	if err != nil {
+		fmt.Printf("Errore scrittura CSV round: %v\n", err)
+	} else {
+		fmt.Printf("Round %d del Game %d salvato con successo!\n", roundNum, gameID)
+	}
+}

@@ -7,21 +7,24 @@ import (
 )
 
 type GameSession struct {
-	mu            sync.Mutex
-	state         *pb.TurnUpdate
-	dealer_ID     int32
-	listeners     []chan *pb.TurnUpdate
-	deck          []*pb.Card
-	hands         map[pb.Actor][]*pb.Card
-	scoreDeck     map[int][]*pb.Card
-	mappaScope    map[int]int32
-	scorePoints   [2]int32
-	history       []*pb.Card
-	tableTop      []*pb.Card
-	victoryPoints int32
-	hasStarted    bool
-	isGameOver    bool
-	ultimaPresa   pb.Actor
+	gameID             int
+	mu                 sync.Mutex
+	state              *pb.TurnUpdate
+	dealer_ID          int32
+	listeners          []chan *pb.TurnUpdate
+	deck               []*pb.Card
+	hands              map[pb.Actor][]*pb.Card
+	scoreDeck          map[int][]*pb.Card
+	mappaScope         map[int]int32
+	scorePoints        [2]int32
+	history            []*pb.Card
+	tableTop           []*pb.Card
+	victoryPoints      int32
+	hasStarted         bool
+	isGameOver         bool
+	ultimaPresa        pb.Actor
+	roundNum           int
+	risultatiCalcolati bool
 }
 
 var gameManager = make(map[int]*GameSession)
@@ -41,6 +44,14 @@ var valPrimiera = map[pb.Rank]int32{
 }
 
 func calcolaRisultati(game *GameSession) [2]int32 {
+	if game.risultatiCalcolati {
+		return [2]int32{game.scorePoints[0], game.scorePoints[1]}
+
+	}
+
+	game.risultatiCalcolati = true
+
+	game.roundNum++
 
 	punteggioFinale := [2]int32{game.scorePoints[0], game.scorePoints[1]}
 
@@ -51,6 +62,9 @@ func calcolaRisultati(game *GameSession) [2]int32 {
 		{0, 0, 0, 0},
 		{0, 0, 0, 0},
 	}
+
+	settebbelloUser := false
+	settebbelloCPU := false
 
 	for i := 0; i < 4; i++ {
 		teamID := i % 2
@@ -64,6 +78,11 @@ func calcolaRisultati(game *GameSession) [2]int32 {
 				denariTotali[teamID]++
 				if card.Rank == pb.Rank_SETTE {
 					punteggioFinale[teamID]++
+					if teamID == 0 {
+						settebbelloUser = true
+					} else {
+						settebbelloCPU = true
+					}
 				}
 			}
 
@@ -82,6 +101,9 @@ func calcolaRisultati(game *GameSession) [2]int32 {
 		punteggioFinale[1]++
 	}
 
+	denariUser := denariTotali[0] > denariTotali[1]
+	denariCpu := denariTotali[1] > denariTotali[0]
+
 	if denariTotali[0] > denariTotali[1] {
 		punteggioFinale[0]++
 	} else if denariTotali[1] > denariTotali[0] {
@@ -95,10 +117,23 @@ func calcolaRisultati(game *GameSession) [2]int32 {
 		}
 	}
 
+	primieraUser := totalePrimiera[0] > totalePrimiera[1]
+	primieraCpu := totalePrimiera[1] > totalePrimiera[0]
+
 	if totalePrimiera[0] > totalePrimiera[1] {
 		punteggioFinale[0]++
 	} else if totalePrimiera[1] > totalePrimiera[0] {
 		punteggioFinale[1]++
+	}
+
+	scopeUser := game.mappaScope[0] + game.mappaScope[2]
+	scopeCpu := game.mappaScope[1] + game.mappaScope[3]
+
+	SalvStatisticheRound(game.gameID, game.roundNum, int(carteTotali[0]), int(carteTotali[1]), int(scopeUser), int(scopeCpu), primieraUser, primieraCpu, settebbelloCPU, settebbelloUser, denariUser, denariCpu)
+
+	for i := 0; i < 4; i++ {
+		game.scoreDeck[i] = nil
+		game.mappaScope[i] = 0
 	}
 
 	return punteggioFinale

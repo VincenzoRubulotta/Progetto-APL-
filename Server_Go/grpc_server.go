@@ -3,6 +3,8 @@ package main
 import (
 	"context"
 
+	"time"
+
 	"math/rand"
 
 	pb "scopone_server/Proto_Files"
@@ -19,24 +21,20 @@ func (s *server) StartGame(ctx context.Context, req *pb.GameSettings) (*pb.Initi
 
 	newGame := &GameSession{
 
-		deck:          make([]*pb.Card, 0),
-		hands:         make(map[pb.Actor][]*pb.Card),
-		scoreDeck:     make(map[int][]*pb.Card),
-		mappaScope:    make(map[int]int32),
-		victoryPoints: req.MaxPoints,
-		hasStarted:    false,
+		deck:               make([]*pb.Card, 0),
+		hands:              make(map[pb.Actor][]*pb.Card),
+		scoreDeck:          make(map[int][]*pb.Card),
+		mappaScope:         make(map[int]int32),
+		victoryPoints:      req.MaxPoints,
+		hasStarted:         false,
+		risultatiCalcolati: false,
 	}
 
 	managerMU.Lock()
 
-	maxIndex := -1
-	for i := range gameManager {
-		if i > maxIndex {
-			maxIndex = i
-		}
-	}
+	gameID := int(time.Now().Unix())
 
-	gameID := maxIndex + 1
+	newGame.gameID = gameID
 	gameManager[gameID] = newGame
 
 	managerMU.Unlock()
@@ -192,10 +190,7 @@ func (s *server) CalcolaPunteggio(ctx context.Context, req *pb.ObserveRequest) (
 		game.dealer_ID = (game.dealer_ID + 1) % 4
 		scoreUpdate.NextPlayer_ID = pb.Actor((game.dealer_ID + 1) % 4)
 
-		for i := range game.scorePoints {
-			game.scoreDeck[i] = nil
-			game.mappaScope[i] = 0
-		}
+		game.risultatiCalcolati = false
 
 		game.deck = game.history
 		game.history = nil
