@@ -70,3 +70,19 @@ Configurazione del Font: L'utilizzo di font differenti o a spaziatura variabile 
 
 ## Codifica dei Caratteri
 È necessario assicurarsi che il terminale supporti nativamente la codifica UTF-8. In ambiente Windows, è fortemente consigliato l'utilizzo di Windows Terminal in sostituzione del prompt dei comandi legacy (cmd.exe).
+
+## Documentazione delle API
+
+Il sistema si basa su due tipologie di interfacce di comunicazione: chiamate gRPC per il core del gioco e rotte HTTP (REST-like) per l'analytics.
+
+### 1. API gRPC (Backend Go)
+Definite nel file Protobuf, gestiscono la comunicazione bidirezionale tra Client C# e Server Go:
+* `StartGame (GameSettings) -> InitialState`: Inizializza una nuova sessione di gioco, mescola il mazzo e restituisce la mano iniziale e l'ID della partita.
+* `PlayCard (PlayRequest) -> TurnUpdate`: Permette all'utente di giocare una carta. Gestisce la logica di presa e la risoluzione di eventuali conflitti di combinazione.
+* `ObserveTurn (ObserveRequest) -> stream TurnUpdate`: Flusso dati in *Server-Side Streaming*. Il client rimane in ascolto passivo per ricevere le mosse effettuate dalla CPU e gli aggiornamenti del tavolo in tempo reale.
+* `CalcolaPunteggio (ObserveRequest) -> ScoreUpdate`: Invocata al termine di una smazzata per calcolare e salvare i punti di mazzo (Primiera, Settebello, ecc.) e verificare le condizioni di vittoria.
+
+### 2. API HTTP / Flask (Data Analytics)
+Esposte dal container Python sulla porta 5000:
+* `GET /stats/match/<game_id>`: Genera e restituisce un'immagine PNG contenente la dashboard statistica della singola partita (carte prese, scope, punti di mazzo) basandosi sul file `rounds_history.csv`.
+* `GET /stats/global` *(o eventuale rotta per il tasto S)*: Genera la dashboard globale dello storico partite leggendo il file `match_history.csv`.
