@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ScoponeClient")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+27f664d2d1f965669d534fc2c6c36d8c9f9040b6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e3a0d227a58aba78ee61c03ecf3abd5e13b17787")]
 [assembly: System.Reflection.AssemblyProductAttribute("ScoponeClient")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ScoponeClient")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

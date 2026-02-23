@@ -30,6 +30,7 @@ class Program
         Console.WriteLine("--- Muoviti con le frecce direzionali per scorrere le carte in mano ---");
         Console.WriteLine("--- Premi INVIO per giocare la carta durante il tuo turno ---");
         Console.WriteLine("--- Premi S per guardare le statistiche ---");
+        Console.WriteLine("--- Premi P per guardare le statistiche parziali della partita ---");
         Console.WriteLine("--- Premi ESC per uscire dal gioco ---");
 
         Console.Write("\n\nInserisci il tuo Nome Utente: ");
@@ -107,6 +108,10 @@ class Program
             else if (keyInfo.Key == ConsoleKey.S)
             {
                 MostraStatistiche();
+            }
+            else if (keyInfo.Key == ConsoleKey.P)
+            {
+                MostraStatistichePartitaCorrente();
             }
         }
     }
@@ -298,6 +303,24 @@ class Program
                 FileName = url,
                 UseShellExecute = true
             });
+        }
+        catch (Exception)
+        {
+            _gameState.setStatusMessage($"Impossibile aprire in automatico. Vai su {url}");
+            TUIRender.Draw(_gameState);
+        }
+    }
+
+    static void MostraStatistichePartitaCorrente()
+    {
+        string url = $"http://localhost:5001/stats/match/{_GameID}";
+
+        _gameState.setStatusMessage($"Apertura statistiche del match {_GameID}...");
+        TUIRender.Draw(_gameState);
+
+        try 
+        {
+            Process.Start(new ProcessStartInfo { FileName = url, UseShellExecute = true });
         }
         catch (Exception)
         {
