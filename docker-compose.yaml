@@ -12,9 +12,7 @@ services:
     build: ./Analytics          
     container_name: python_stats
     ports:
-      - "5001:5001"              
-    depends_on:
-      - scopone-backend      
+      - "5001:5001"                 
     volumes:
       - stats_volume:/data     
 
