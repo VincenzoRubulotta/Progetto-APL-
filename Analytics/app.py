@@ -24,6 +24,7 @@ def genera_stats_singola_partita(game_id):
     
     df_rounds.columns = df_rounds.columns.str.strip()
     df_match = df_rounds[df_rounds['GameID'] == game_id]
+    userName = str(df_match['UserName'].iloc[0]).strip()
 
     if df_match.empty:
         return f"<h1>Partita {game_id} non trovata</h1><p>Nessun round registrato per questa partita completa il primo match e poi riprova.</p>"
@@ -33,7 +34,7 @@ def genera_stats_singola_partita(game_id):
         df_match[col] = df_match[col].astype(str).str.lower().map({'true':1,'false':0}).fillna(0)
 
     fig, axs = plt.subplots(1, 3, figsize=(18, 6))
-    fig.suptitle(f'Analisi Smazzate - Partita ID: {game_id}', fontsize=18, fontweight='bold')
+    fig.suptitle(f'Analisi Smazzate - Nome Giocatore: {userName}', fontsize=18, fontweight='bold')
 
     axs[0].plot(df_match['RoundNum'], df_match['CarteUser'], label='Carte Tue', marker='o', color='green', linewidth=2)
     axs[0].plot(df_match['RoundNum'], df_match['CarteCPU'], label='Carte CPU', marker='x', color='red', linewidth=2)

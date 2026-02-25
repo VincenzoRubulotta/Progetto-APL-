@@ -197,7 +197,9 @@ class Program
             if (scoreUpdate.IsGameOver)
             {
 
+                System.Threading.Thread.Sleep(1500);
                 MostraStatistiche();
+                System.Threading.Thread.Sleep(1500);
                 MostraStatistichePartitaCorrente();
 
                 Console.Clear();
@@ -264,7 +266,7 @@ class Program
                     _gameState.SpostaCartaSulTavolo(update.PlayedCard, update.Actor);
                     TUIRender.Draw(_gameState);
 
-                    await Task.Delay(200);
+                    await Task.Delay(2500);
 
                     var listaPrese = update.CartePrese.ToList();
 

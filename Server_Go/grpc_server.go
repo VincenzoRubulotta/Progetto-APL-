@@ -28,6 +28,7 @@ func (s *server) StartGame(ctx context.Context, req *pb.GameSettings) (*pb.Initi
 		victoryPoints:      req.MaxPoints,
 		hasStarted:         false,
 		risultatiCalcolati: false,
+		userName:           req.UserName,
 	}
 
 	managerMU.Lock()
@@ -178,13 +179,13 @@ func (s *server) CalcolaPunteggio(ctx context.Context, req *pb.ObserveRequest) (
 		game.isGameOver = true
 		scoreUpdate.UserHand = nil
 
-		salvaStatistichePartite(req.Game_ID, punteggio[0], punteggio[1], game.victoryPoints)
+		salvaStatistichePartite(game.userName, req.Game_ID, punteggio[0], punteggio[1], game.victoryPoints)
 	} else if punteggio[1] >= game.victoryPoints && punteggio[1] > punteggio[0] {
 		scoreUpdate.IsGameOver = true
 		game.isGameOver = true
 		scoreUpdate.UserHand = nil
 
-		salvaStatistichePartite(req.Game_ID, punteggio[0], punteggio[1], game.victoryPoints)
+		salvaStatistichePartite(game.userName, req.Game_ID, punteggio[0], punteggio[1], game.victoryPoints)
 	} else {
 		scoreUpdate.IsGameOver = false
 		game.dealer_ID = (game.dealer_ID + 1) % 4

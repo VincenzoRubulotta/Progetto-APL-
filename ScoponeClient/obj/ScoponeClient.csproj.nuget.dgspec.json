@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL/ScoponeClient/ScoponeClient.csproj": {}
+    "/Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL_Scopone_Scientifico/ScoponeClient/ScoponeClient.csproj": {}
   },
   "projects": {
-    "/Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL/ScoponeClient/ScoponeClient.csproj": {
+    "/Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL_Scopone_Scientifico/ScoponeClient/ScoponeClient.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL/ScoponeClient/ScoponeClient.csproj",
+        "projectUniqueName": "/Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL_Scopone_Scientifico/ScoponeClient/ScoponeClient.csproj",
         "projectName": "ScoponeClient",
-        "projectPath": "/Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL/ScoponeClient/ScoponeClient.csproj",
+        "projectPath": "/Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL_Scopone_Scientifico/ScoponeClient/ScoponeClient.csproj",
         "packagesPath": "/Users/vincenzorubulotta/.nuget/packages/",
-        "outputPath": "/Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL/ScoponeClient/obj/",
+        "outputPath": "/Users/vincenzorubulotta/Desktop/UNI/AdvancedProgrammingLanguages/Progetto_APL_Scopone_Scientifico/ScoponeClient/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/vincenzorubulotta/.nuget/NuGet/NuGet.Config"

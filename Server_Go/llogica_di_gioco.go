@@ -8,6 +8,7 @@ import (
 
 type GameSession struct {
 	gameID             int
+	userName           string
 	mu                 sync.Mutex
 	state              *pb.TurnUpdate
 	dealer_ID          int32
@@ -129,7 +130,7 @@ func calcolaRisultati(game *GameSession) [2]int32 {
 	scopeUser := game.mappaScope[0] + game.mappaScope[2]
 	scopeCpu := game.mappaScope[1] + game.mappaScope[3]
 
-	SalvStatisticheRound(game.gameID, game.roundNum, int(carteTotali[0]), int(carteTotali[1]), int(scopeUser), int(scopeCpu), primieraUser, primieraCpu, settebbelloCPU, settebbelloUser, denariUser, denariCpu)
+	SalvStatisticheRound(game.userName, game.gameID, game.roundNum, int(carteTotali[0]), int(carteTotali[1]), int(scopeUser), int(scopeCpu), primieraUser, primieraCpu, settebbelloCPU, settebbelloUser, denariUser, denariCpu)
 
 	for i := 0; i < 4; i++ {
 		game.scoreDeck[i] = nil

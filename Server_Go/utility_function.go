@@ -52,7 +52,7 @@ func calcolaPunteggioCombinazione(combinazione []*pb.Card) int {
 	return Punteggio
 }
 
-func salvaStatistichePartite(gameID int32, userScore int32, cpuScore int32, limitepunti int32) {
+func salvaStatistichePartite(userName string, gameID int32, userScore int32, cpuScore int32, limitepunti int32) {
 	filename := "/data/match_history.csv"
 
 	if _, err := os.Stat("/data"); os.IsNotExist(err) {
@@ -77,7 +77,7 @@ func salvaStatistichePartite(gameID int32, userScore int32, cpuScore int32, limi
 	defer writer.Flush()
 
 	if !fileExists {
-		header := []string{"Data", "GameID", "LimitePunti", "PuntiUser", "PuntiCPU", "Vincitore"}
+		header := []string{"UserName", "Data", "GameID", "LimitePunti", "PuntiUser", "PuntiCPU", "Vincitore"}
 		writer.Write(header)
 	}
 
@@ -88,6 +88,7 @@ func salvaStatistichePartite(gameID int32, userScore int32, cpuScore int32, limi
 	}
 
 	record := []string{
+		userName,
 		time.Now().Format("02-01-2006 15:04:05"),
 		strconv.Itoa(int(gameID)),
 		strconv.Itoa(int(limitepunti)),
@@ -104,7 +105,7 @@ func salvaStatistichePartite(gameID int32, userScore int32, cpuScore int32, limi
 	}
 }
 
-func SalvStatisticheRound(gameID int, roundNum int, carteUser int, carteCPU int, scoperUser int, scoperCPU int, primieraUser bool, primieraCPU bool, settebelloCPU bool, settebelloUser bool, denariUser bool, denariCpu bool) {
+func SalvStatisticheRound(userName string, gameID int, roundNum int, carteUser int, carteCPU int, scoperUser int, scoperCPU int, primieraUser bool, primieraCPU bool, settebelloCPU bool, settebelloUser bool, denariUser bool, denariCpu bool) {
 	filename := "/data/rounds_history.csv"
 	if _, err := os.Stat("/data"); os.IsNotExist(err) {
 		filename = "round_history.csv"
@@ -127,6 +128,7 @@ func SalvStatisticheRound(gameID int, roundNum int, carteUser int, carteCPU int,
 
 	if !fileExists {
 		header := []string{
+			"UserName",
 			"GameID", "RoundNum",
 			"CarteUser", "CarteCPU",
 			"ScopeUser", "ScopeCPU",
@@ -138,6 +140,7 @@ func SalvStatisticheRound(gameID int, roundNum int, carteUser int, carteCPU int,
 	}
 
 	record := []string{
+		userName,
 		strconv.Itoa(gameID),
 		strconv.Itoa(roundNum),
 		strconv.Itoa(carteUser),
