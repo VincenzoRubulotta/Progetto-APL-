@@ -9,6 +9,14 @@ import (
 	"time"
 )
 
+func (g *GameSession) TerminaGoroutine() {
+	for _, ch := range g.listeners {
+		close(ch)
+	}
+
+	g.listeners = nil
+}
+
 func isSameCard(c1, c2 *pb.Card) bool {
 	return c1.Suit == c2.Suit && c1.Rank == c2.Rank
 }
