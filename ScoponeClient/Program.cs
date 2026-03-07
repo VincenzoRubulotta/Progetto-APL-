@@ -266,7 +266,7 @@ class Program
                     _gameState.SpostaCartaSulTavolo(update.PlayedCard, update.Actor);
                     TUIRender.Draw(_gameState);
 
-                    await Task.Delay(2500);
+                    await Task.Delay(250);
 
                     var listaPrese = update.CartePrese.ToList();
 

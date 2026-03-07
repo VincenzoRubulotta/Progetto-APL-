@@ -157,57 +157,31 @@ func calcolaGiocata(hand []*pb.Card, tableTop []*pb.Card, history []*pb.Card) *p
 			conta[card.Rank]++
 		}
 
-		for rank, numero := range conta {
-			switch numero {
-			case 4:
-				for _, card := range hand {
-					if card.Rank == rank && card.Suit != pb.Suit_DENARI {
-						return card
-					}
-				}
+		for _, card := range hand {
+			numero := conta[card.Rank]
 
+			if numero == 4 && card.Suit != pb.Suit_DENARI {
+				return card
+			}
+
+			switch numero {
 			case 3:
-				for _, card := range hand {
-					mappaPunteggi[card] += 100
-					if card.Rank == pb.Rank_SETTE && card.Suit == pb.Suit_DENARI {
-						mappaPunteggi[card] -= 1500
-					}
-					if card.Rank == pb.Rank_SETTE {
-						mappaPunteggi[card] -= 40
-					}
-					if card.Suit == pb.Suit_DENARI {
-						mappaPunteggi[card] -= 20
-					}
-				}
+				mappaPunteggi[card] += 100
 
 			case 2:
-				for _, card := range hand {
-					mappaPunteggi[card] += 59
-					if card.Rank == pb.Rank_SETTE && card.Suit == pb.Suit_DENARI {
-						mappaPunteggi[card] -= 1500
-					}
-					if card.Rank == pb.Rank_SETTE {
-						mappaPunteggi[card] -= 40
-					}
-					if card.Suit == pb.Suit_DENARI {
-						mappaPunteggi[card] -= 20
-					}
-				}
-
+				mappaPunteggi[card] += 59
 			default:
-				for _, card := range hand {
-					mappaPunteggi[card] += 18
-					if card.Rank == pb.Rank_SETTE && card.Suit == pb.Suit_DENARI {
-						mappaPunteggi[card] -= 1500
-					}
-					if card.Rank == pb.Rank_SETTE {
-						mappaPunteggi[card] -= 40
-					}
-					if card.Suit == pb.Suit_DENARI {
-						mappaPunteggi[card] -= 20
-					}
-				}
+				mappaPunteggi[card] += 18
 			}
+
+			if card.Rank == pb.Rank_SETTE && card.Suit == pb.Suit_DENARI {
+				mappaPunteggi[card] -= 1500
+			} else if card.Rank == pb.Rank_SETTE {
+				mappaPunteggi[card] -= 40
+			} else if card.Suit == pb.Suit_DENARI {
+				mappaPunteggi[card] -= 20
+			}
+
 		}
 	} else { // caso tavolo non vuoto
 		contaPunteggioTavolo := 0
@@ -237,16 +211,11 @@ func calcolaGiocata(hand []*pb.Card, tableTop []*pb.Card, history []*pb.Card) *p
 		// se non posso fare scopa (valuto le carte in mano)
 		for _, card := range hand {
 			combinazioni := trovaCombinazioni(tableTop, int32(card.Rank))
-			if len(combinazioni) == 0 {
-				if card.Suit == pb.Suit_DENARI {
-					mappaPunteggi[card] += 100
-				}
-				if card.Rank == pb.Rank_SETTE {
-					mappaPunteggi[card] += 500
-				}
+			if len(combinazioni) > 0 {
 
-				punteggioMax := 0
+				punteggioMax := -9999999
 				combinazioneScelta := make([]*pb.Card, 0)
+
 				for _, combinazione := range combinazioni {
 					punteggioAttuale := calcolaPunteggioCombinazione(combinazione)
 					if punteggioAttuale > punteggioMax {
@@ -254,6 +223,8 @@ func calcolaGiocata(hand []*pb.Card, tableTop []*pb.Card, history []*pb.Card) *p
 						combinazioneScelta = combinazione
 					}
 				}
+
+				mappaPunteggi[card] += punteggioMax
 
 				coteggioGiocata := 0
 				for _, c := range combinazioneScelta {
@@ -271,6 +242,10 @@ func calcolaGiocata(hand []*pb.Card, tableTop []*pb.Card, history []*pb.Card) *p
 				}
 				if card.Rank == pb.Rank_SETTE {
 					mappaPunteggi[card] -= 500
+				}
+
+				if contaPunteggioTavolo+int(card.Rank) <= 10 {
+					mappaPunteggi[card] -= 1500
 				}
 			}
 		}

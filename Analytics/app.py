@@ -29,7 +29,7 @@ def genera_stats_singola_partita(game_id):
     if df_match.empty:
         return f"<h1>Partita {game_id} non trovata</h1><p>Nessun round registrato per questa partita completa il primo match e poi riprova.</p>"
     
-    colonne_bool = colonne_bool = ['PrimieraUser', 'PrimieraCPU', 'SettebelloUser', 'SettebelloCPU', 'DenariUser', 'DenariCPU']
+    colonne_bool  = ['PrimieraUser', 'PrimieraCPU', 'SettebelloUser', 'SettebelloCPU', 'DenariUser', 'DenariCPU']
     for col in colonne_bool:
         df_match[col] = df_match[col].astype(str).str.lower().map({'true':1,'false':0}).fillna(0)
 
